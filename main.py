@@ -1,1 +1,48 @@
-print("hello world")
+import phototaker
+import time
+import grovepi
+import global_variables as glv
+
+glv.init_variables()
+
+def reset_photo_taking():
+    print("todo: upload photo")
+    # read last photo from glv.
+    time.sleep(2)
+    glv.take_a_photo_running = False
+
+# other classes
+taker = phototaker.PhotoTaker()
+
+grovepi.set_bus('RPI_1')
+print("welcome to the photobox")
+
+# global needed variables.
+buttonPort = 3
+run = True
+
+# events
+glv.events.take_a_photo += taker.shot
+glv.events.end_a_photo += reset_photo_taking
+
+grovepi.pinMode(buttonPort, "INPUT")
+
+print("start running program.")
+while run:
+    try:
+        time.sleep(0.01)
+        digitalInputButton = grovepi.digitalRead(buttonPort)
+        
+        if (digitalInputButton):
+            if not glv.take_a_photo_running:
+                glv.take_a_photo_running = True
+                glv.events.take_a_photo()
+
+    except IOError:
+        print('IOError')
+        run = False
+
+    except KeyboardInterrupt:
+        print('good bye')
+        run = False
+
