@@ -46,6 +46,8 @@ class PhotoTaker:
 
     def shot(self): 
         print("photo aufnehmen start.")
-        cv2.imwrite(self.get_next_image_name(), self.image)
+        image_name = self.get_next_image_name()
+        cv2.imwrite(image_name, self.image)
+        glv.last_image = image_name
         print("photo aufnehmen stop.")
         glv.events.end_a_photo()
