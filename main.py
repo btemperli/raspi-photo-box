@@ -1,7 +1,10 @@
 import phototaker
+import display
 import time
 import grovepi
 import global_variables as glv
+import tkinter as tk
+import threading
 
 glv.init_variables()
 
@@ -13,6 +16,7 @@ def reset_photo_taking():
 
 # other classes
 taker = phototaker.PhotoTaker()
+display = display.Display()
 
 grovepi.set_bus('RPI_1')
 print("welcome to the photobox")
@@ -28,21 +32,26 @@ glv.events.end_a_photo += reset_photo_taking
 grovepi.pinMode(buttonPort, "INPUT")
 
 print("start running program.")
-while run:
-    try:
-        time.sleep(0.01)
-        digitalInputButton = grovepi.digitalRead(buttonPort)
-        
-        if (digitalInputButton):
-            if not glv.take_a_photo_running:
-                glv.take_a_photo_running = True
-                glv.events.take_a_photo()
+def checkButtons():
+    while run:
+        try:
+            time.sleep(0.01)
+            digitalInputButton = grovepi.digitalRead(buttonPort)
+            
+            if (digitalInputButton):
+                if not glv.take_a_photo_running:
+                    glv.take_a_photo_running = True
+                    glv.events.take_a_photo()
 
-    except IOError:
-        print('IOError')
-        run = False
+        except IOError:
+            print('IOError')
+            run = False
 
-    except KeyboardInterrupt:
-        print('good bye')
-        run = False
+        except KeyboardInterrupt:
+            print('good bye')
+            run = False
 
+checkButtonsThread = threading.Thread(target=checkButtons)
+
+# display
+glv.root_window.mainloop()
