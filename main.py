@@ -26,6 +26,7 @@ buttonPort = 3
 run = True
 
 # events
+glv.events.take_a_photo += display.start_countdown
 glv.events.take_a_photo += taker.shot
 glv.events.end_a_photo += reset_photo_taking
 

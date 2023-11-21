@@ -44,10 +44,15 @@ class PhotoTaker:
                 pass
 
 
-    def shot(self): 
+    def shot(self):
         print("photo aufnehmen start.")
-        image_name = self.get_next_image_name()
-        cv2.imwrite(image_name, self.image)
-        glv.last_image = image_name
+        if True:
+            glv.last_image = "/images/image_8.jpg"
+
+        else:
+            image_name = self.get_next_image_name()
+            cv2.imwrite(image_name, self.image)
+            glv.last_image = image_name
+
         print("photo aufnehmen stop.")
         glv.events.end_a_photo()
