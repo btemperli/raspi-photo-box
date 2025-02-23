@@ -42,4 +42,4 @@ echo ''
 echo ''
 echo ''
 echo ' - start main - '
-python main.py
+sudo python3 main.py

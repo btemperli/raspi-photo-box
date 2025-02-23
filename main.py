@@ -1,58 +1,55 @@
 import phototaker
-import display
 import time
-import grovepi
 import global_variables as glv
-import tkinter as tk
-import threading
+import ledfont
+import buttonhandler
 
 glv.init_variables()
+
+
+def restart():
+    ledFont.ledFontStartShow()
 
 def reset_photo_taking():
     print("todo: upload photo (" + glv.last_image + ")")
     # read last photo from glv.
     time.sleep(2)
     glv.take_a_photo_running = False
+    restart()
 
 # other classes
 taker = phototaker.PhotoTaker()
-display = display.Display()
+ledFont = ledfont.LedFont()
+buttonHandler = buttonhandler.ButtonHandler()
 
-grovepi.set_bus('RPI_1')
 print("welcome to the photobox")
 
 # global needed variables.
-buttonPort = 3
 run = True
 
 # events
-glv.events.take_a_photo += display.start_countdown
 glv.events.take_a_photo += taker.shot
 glv.events.end_a_photo += reset_photo_taking
 
-grovepi.pinMode(buttonPort, "INPUT")
-
+# prepare
 print("start running program.")
-def checkButtons():
-    while run:
-        try:
-            time.sleep(0.01)
-            digitalInputButton = grovepi.digitalRead(buttonPort)
-            
-            if (digitalInputButton):
-                if not glv.take_a_photo_running:
-                    glv.take_a_photo_running = True
-                    glv.events.take_a_photo()
+restart()
 
-        except IOError:
-            print('IOError')
-            run = False
+while run:
+    try:
+        time.sleep(0.1)
+        # digitalInputButton = grovepi.digitalRead(buttonPort)
 
-        except KeyboardInterrupt:
-            print('good bye')
-            run = False
+        if False:
+            if not glv.take_a_photo_running:
+                glv.take_a_photo_running = True
+                glv.events.take_a_photo()
 
-checkButtonsThread = threading.Thread(target=checkButtons)
 
-# display
-glv.root_window.mainloop()
+    except IOError:
+        print('IOError')
+        run = False
+
+    except KeyboardInterrupt:
+        print('good bye')
+        run = False

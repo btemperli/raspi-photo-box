@@ -10,6 +10,8 @@ class PhotoTaker:
     img_directory = '/home/pi/projects/raspi-photo-box/images'
     image = None
     image_ready = False
+    video_width = 1280
+    video_height = 720
 
     def __init__(self):
         video_stream_thread = threading.Thread(target=self.stream_video_as_thread)
@@ -37,6 +39,7 @@ class PhotoTaker:
         while True:
             try:
                 if self.image_ready:
+                    cv2.namedWindow("image")
                     cv2.imshow('image shot', self.image)
                     key = cv2.waitKey(1)
             except AttributeError:
@@ -46,13 +49,8 @@ class PhotoTaker:
 
     def shot(self):
         print("photo aufnehmen start.")
-        if True:
-            glv.last_image = "/images/image_8.jpg"
-
-        else:
-            image_name = self.get_next_image_name()
-            cv2.imwrite(image_name, self.image)
-            glv.last_image = image_name
-
+        image_name = self.get_next_image_name()
+        cv2.imwrite(image_name, self.image)
+        glv.last_image = image_name
         print("photo aufnehmen stop.")
         glv.events.end_a_photo()

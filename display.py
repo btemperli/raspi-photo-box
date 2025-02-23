@@ -7,7 +7,6 @@ class Display():
     def __init__(self):
         glv.root_window.title("Countdown und Video-Stream")
         glv.root_window.geometry(str(glv.window_width) + "x" + str(glv.window_height))
-        glv.
 
         self.label = ttk.Label(glv.root_window, text="", font=("Helvetica", 144))
         self.label.pack(ipadx=200, ipady=100)
@@ -25,7 +24,6 @@ class Display():
             self.start_countdown()
 
     def show_video_stream(self):
-        # Hier sollte Ihre Logik zum Anzeigen des Video-Streams stehen.
         # In diesem Beispiel wird eine graue Box angezeigt.
         print("todo: show video stream")
 
