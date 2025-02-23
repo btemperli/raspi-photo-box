@@ -22,6 +22,7 @@ class LedFont():
     LED_T_START = 16
     LED_O2_START = 23
     LED_S_START = 31
+    DURATION = 30
 
     pixels_font = None
     show_pixels = True
@@ -29,7 +30,13 @@ class LedFont():
 
     def __init__(self):
         BRIGHTNESS = 0.5
-        self.pixels_font = neopixel.NeoPixel(board.D18, 39, brightness=BRIGHTNESS, auto_write=False, pixel_order=neopixel.RGB)
+        self.pixels_font = neopixel.NeoPixel(
+            board.D18,
+            39,
+            brightness=BRIGHTNESS,
+            auto_write=False,
+            pixel_order=neopixel.RGB
+        )
 
     def ledShowFontRainbowSlide(self):
         while self.show_pixels:
@@ -71,7 +78,7 @@ class LedFont():
                     break
             i += 1
 
-    def ledFontSinglePoint(self, duration=20, double=False):
+    def ledFontSinglePoint(self, duration=DURATION, double=False):
         i = 0
         colorMain = self.INV_ORANGE
         colorDot = self.INV_WHITE
@@ -125,27 +132,27 @@ class LedFont():
             self.showOrangeLight,
             [
                 self.ledFontSinglePoint,
-                [20, True]
+                [self.DURATION, True]
             ],
             [
                 self.ledFontSinglePoint,
-                [20, False]
+                [self.DURATION, False]
             ],
             [
                 self.ledFontFillLetters,
-                [20, self.INV_ORANGE, self.INV_WHITE, False]
+                [self.DURATION * 2, self.INV_ORANGE, self.INV_WHITE, False]
             ],
             [
                 self.ledFontFillLetters,
-                [20, self.INV_ORANGE, self.INV_ORANGE_LIGHT]
+                [self.DURATION * 2, self.INV_ORANGE, self.INV_ORANGE_LIGHT]
             ],
             [
                 self.ledFontFillLetters,
-                [20, self.INV_MAGENTA, self.INV_VIOLET, False]
+                [self.DURATION * 2, self.INV_MAGENTA, self.INV_VIOLET, False]
             ],
             [
                 self.ledFontFillLetters,
-                [20, self.INV_MAGENTA, self.INV_VIOLET]
+                [self.DURATION * 2, self.INV_MAGENTA, self.INV_VIOLET]
             ]
         ]
 
@@ -182,15 +189,15 @@ class LedFont():
         self.pixels_font.show()
         time.sleep(duration)
 
-    def showOrange(self, duration=20):
+    def showOrange(self, duration=DURATION):
         self.show(self.INV_ORANGE, duration)
-    def showOrangeLight(self, duration=20):
+    def showOrangeLight(self, duration=DURATION):
         self.show(self.INV_ORANGE_LIGHT, duration)
-    def showMagenta(self, duration=20):
+    def showMagenta(self, duration=DURATION):
         self.show(self.INV_MAGENTA, duration)
-    def showViolet(self, duration=20):
+    def showViolet(self, duration=DURATION):
         self.show(self.INV_VIOLET, duration)
-    def showGreen(self, duration=20):
+    def showGreen(self, duration=DURATION):
         self.show(self.INV_GREEN, duration)
 
     def stop(self):
