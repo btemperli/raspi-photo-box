@@ -15,6 +15,7 @@ def shut_down():
     buttonHandler.shut_down()
     ledFont.stop()
     ledLight.stop()
+
     if glv.DEBUG:
         print("main.py is shutting down")
 

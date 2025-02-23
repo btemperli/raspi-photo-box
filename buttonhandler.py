@@ -35,11 +35,11 @@ class ButtonHandler():
             self.LED_SM_GRE.value = 0.3
             self.LED_SM_RED.value = 0.3
             self.LED_LG_RED.value = 0
-            time.sleep(1)
+            time.sleep(glv.TIME_BUTTON_PULSE)
             self.LED_SM_GRE.value = 0
             self.LED_SM_RED.value = 0
             self.LED_LG_RED.value = 1
-            time.sleep(1)
+            time.sleep(glv.TIME_BUTTON_PULSE)
 
     def btn_sm_gre_pressed(self):
         if glv.DEBUG:
