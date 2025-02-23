@@ -3,8 +3,10 @@ import photoboxevents
 
 DEBUG = True
 
-WINDOW_HEIGHT = 600 #768
-WINDOW_WIDTH = 800 #1280
+WINDOW_HEIGHT = 1080 #768
+WINDOW_WIDTH = 1920 #1280
+CAMERA_HEIGHT = 1440
+CAMERA_WIDTH = 2560
 
 PORT_LED_LG_RED = 13
 PORT_LED_SM_RED = 19
@@ -21,19 +23,9 @@ take_a_photo_running = False
 EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 
-PYGAME = None
-SCREEN = None
+INSTANCE_DISPLAY = None
 
 
 def set_setup(setup):
     global CURRENT_SETUP
     CURRENT_SETUP = setup
-
-
-def set_pg(pg):
-    global PYGAME
-    PYGAME = pg
-
-def set_screen(screen):
-    global SCREEN
-    SCREEN = screen

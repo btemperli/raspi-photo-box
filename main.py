@@ -11,6 +11,7 @@ import display
 def shut_down():
     display.shut_down()
     photoTaker.shut_down()
+    ledfont.stop()
     if glv.DEBUG:
         print("main.py is shutting down")
 
@@ -27,25 +28,30 @@ def reset_photo_taking():
     restart()
 
 
-# other classes
+# load all the other classes
 display = display.Display()
+glv.INSTANCE_DISPLAY = display
+
 ledFont = ledfont.LedFont()
 buttonHandler = buttonhandler.ButtonHandler()
 
 # needs to be after display
 photoTaker = phototaker.PhotoTaker()
 
-print("welcome to the photobox")
+print("-------------------------")
+print(" welcome to the photobox ")
+print("-------------------------")
 
 # global needed variables.
 run = True
 
 # events
-glv.EVENTS.take_a_photo += taker.shot
+glv.EVENTS.take_a_photo += photoTaker.shot
 glv.EVENTS.end_a_photo += reset_photo_taking
 
 # prepare
-print("start running program.")
+if (glv.DEBUG):
+    print("start running main program")
 restart()
 
 while run:

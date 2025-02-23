@@ -8,14 +8,22 @@ class Display():
 
     def __init__(self):
         pygame.init()
-        screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)  # Raspberry Pi Touchscreen
+        self.screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)  # Raspberry Pi Touchscreen
         pygame.display.set_caption("Fotobox")
         self.font = pygame.font.Font(None, 80)
         self.clock = pygame.time.Clock()
         self.show_video = True
 
-        glv.set_pg(pygame)
-        glv.set_screen(screen)
+        self.stream_frame_width = int(glv.CAMERA_WIDTH * 0.6)
+        self.stream_frame_height = int(glv.CAMERA_HEIGHT * 0.6)
+        self.stream_frame_tl_x = (glv.WINDOW_WIDTH - self.stream_frame_width) // 2
+        self.stream_frame_tl_y = (glv.WINDOW_HEIGHT - self.stream_frame_height) // 2
+
+        self.screen.fill((0, 0, 0))
+        pygame.display.update()
+
+        # glv.set_pg(pygame)
+        # glv.set_screen(screen)
 
         # glv.root_window.title("Countdown und Video-Stream")
         # glv.root_window.geometry(str(glv.window_width) + "x" + str(glv.window_height))
@@ -34,6 +42,22 @@ class Display():
             self.show_video_stream()
         else:
             self.start_countdown()
+
+    def update_video_stream_frame(self, frame):
+        frame = pygame.surfarray.make_surface(frame)
+        frame = pygame.transform.scale(frame, (self.stream_frame_width, self.stream_frame_height))
+        self.screen.blit(frame, (self.stream_frame_tl_x, self.stream_frame_tl_y))
+        pygame.display.update()
+
+    def display_image(self, image_name):
+        img = pygame.image.load(image_name)
+        img = pygame.transform.scale(img, (glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT))
+        self.screen.blit(img, (0, 0))
+        pygame.display.update()
+
+    def check_pygame(self):
+        print("check pygame")
+        print(pygame)
 
     def show_video_stream(self):
         # In diesem Beispiel wird eine graue Box angezeigt.
