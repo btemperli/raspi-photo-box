@@ -5,11 +5,12 @@ import ledfont
 import buttonhandler
 import display
 
-glv.init_variables()
+# glv.init_variables()
 
 
 def restart():
     ledFont.ledFontStartShow()
+
 
 def reset_photo_taking():
     print("todo: upload photo (" + glv.last_image + ")")
@@ -17,6 +18,7 @@ def reset_photo_taking():
     time.sleep(2)
     glv.take_a_photo_running = False
     restart()
+
 
 # other classes
 taker = phototaker.PhotoTaker()
