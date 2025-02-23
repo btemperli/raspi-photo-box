@@ -10,8 +10,12 @@ class PhotoTaker:
     img_directory = '/home/pi/projects/raspi-photo-box/images'
     image = None
     image_ready = False
-    video_width = 1280
-    video_height = 720
+
+    camera.set(3, glv.WINDOW_WIDTH)  # Breite
+    camera.set(4, glv.WINDOW_HEIGHT)  # Höhe
+
+    # video_width = 1280
+    # video_height = 720
 
     def __init__(self):
         video_stream_thread = threading.Thread(target=self.stream_video_as_thread)
@@ -48,9 +52,26 @@ class PhotoTaker:
 
 
     def shot(self):
+
         print("photo aufnehmen start.")
+        ret, frame = self.camera.read()
         image_name = self.get_next_image_name()
-        cv2.imwrite(image_name, self.image)
-        glv.last_image = image_name
+
+        if ret:
+            cv2.imwrite(image_name, frame)
+            glv.last_image = image_name
+
+            # Foto anzeigen
+            img = glv.PYGAME.image.load(image_name)
+            img = glv.PYGAME.transform.scale(img, (800, 480))
+            glv.SCREEN.blit(img, (0, 0))
+            glv.PYGAME.display.update()
+            time.sleep(2)  # Kurz anzeigen
+
+        # photo_taken = True
+        # led.value = 0
+
+        # cv2.imwrite(image_name, self.image)
+        # glv.last_image = image_name
         print("photo aufnehmen stop.")
         glv.events.end_a_photo()

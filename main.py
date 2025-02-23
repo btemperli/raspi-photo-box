@@ -22,7 +22,7 @@ def reset_photo_taking():
 taker = phototaker.PhotoTaker()
 ledFont = ledfont.LedFont()
 buttonHandler = buttonhandler.ButtonHandler()
-display = display.__init__()
+display = display.Display()
 
 print("welcome to the photobox")
 

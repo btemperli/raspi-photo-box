@@ -44,3 +44,12 @@ def init_variables():
 def set_setup(setup):
     global CURRENT_SETUP
     CURRENT_SETUP = setup
+
+
+def set_pg(pg):
+    global PYGAME
+    PYGAME = pg
+
+def set_screen(screen):
+    global SCREEN
+    SCREEN = screen
