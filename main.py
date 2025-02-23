@@ -28,10 +28,12 @@ def reset_photo_taking():
 
 
 # other classes
-photoTaker = phototaker.PhotoTaker()
+display = display.Display()
 ledFont = ledfont.LedFont()
 buttonHandler = buttonhandler.ButtonHandler()
-display = display.Display()
+
+# needs to be after display
+photoTaker = phototaker.PhotoTaker()
 
 print("welcome to the photobox")
 

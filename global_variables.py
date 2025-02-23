@@ -24,6 +24,7 @@ last_image = ""
 PYGAME = None
 SCREEN = None
 
+
 def set_setup(setup):
     global CURRENT_SETUP
     CURRENT_SETUP = setup

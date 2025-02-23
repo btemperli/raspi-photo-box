@@ -4,6 +4,7 @@ import time
 import global_variables as glv
 import threading
 
+
 class PhotoTaker:
     camera = cv2.VideoCapture(0)
     img_file_name = 'image'
@@ -33,6 +34,7 @@ class PhotoTaker:
         return self.img_directory + '/' + self.img_file_name + '_' + str(count_files) + '.jpg'
 
     def stream_video_as_thread(self):
+        print(glv.PYGAME)
         while True:
             ret, frame = self.camera.read()
             if ret:
