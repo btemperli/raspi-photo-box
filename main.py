@@ -3,6 +3,7 @@ import time
 import global_variables as glv
 import ledfont
 import buttonhandler
+import display
 
 glv.init_variables()
 
@@ -21,6 +22,7 @@ def reset_photo_taking():
 taker = phototaker.PhotoTaker()
 ledFont = ledfont.LedFont()
 buttonHandler = buttonhandler.ButtonHandler()
+display = display.__init__()
 
 print("welcome to the photobox")
 
@@ -28,8 +30,8 @@ print("welcome to the photobox")
 run = True
 
 # events
-glv.events.take_a_photo += taker.shot
-glv.events.end_a_photo += reset_photo_taking
+glv.EVENTS.take_a_photo += taker.shot
+glv.EVENTS.end_a_photo += reset_photo_taking
 
 # prepare
 print("start running program.")

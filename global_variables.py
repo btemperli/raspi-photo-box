@@ -2,39 +2,45 @@ import photoboxevents
 import tkinter as tk
 
 
-def set_setup(setup):
-    global current_setup
-
-    current_setup = setup
-
-
 def init_variables():
     global take_a_photo_running
-    global events
     global last_image
     global root_window
-    global window_height
-    global window_width
-    global port_button_small_red
-    global port_button_small_green
-    global port_button_big_red
+
+    global EVENTS
+    global WINDOW_HEIGHT
+    global WINDOW_WIDTH
+    global PORT_LED_LG_RED
+    global PORT_LED_SM_RED
+    global PORT_LED_SM_GRE
+    global PORT_BUTTON_LG_RED
+    global PORT_BUTTON_SM_RED
+    global PORT_BUTTON_SM_GRE
     global SETUP_WITH_GROVE
     global SETUP_RAW
-    global take_a_photo_running
-    global events
-    global last_image
+    global CURRENT_SETUP
 
-    root_window = tk.Tk()
-    window_height = 768
-    window_width = 1280
-    port_button_small_red = 1
-    port_button_small_green = 2
-    port_button_big_red = 3
+    # root_window = tk.Tk()
+    WINDOW_HEIGHT = 600 #768
+    WINDOW_WIDTH = 800 #1280
+
+    PORT_LED_LG_RED = 13
+    PORT_LED_SM_RED = 19
+    PORT_LED_SM_GRE = 26
+    PORT_BUTTON_LG_RED = 6
+    PORT_BUTTON_SM_RED = 16
+    PORT_BUTTON_SM_GRE = 20
+
 
     SETUP_RAW = 'SETUP_RAW'
     SETUP_WITH_GROVE = 'SETUP_WITH_GROVE'
+    CURRENT_SETUP = SETUP_RAW
 
     take_a_photo_running = False
-    events = photoboxevents.PhotoBoxEvents()
+    EVENTS = photoboxevents.PhotoBoxEvents()
     last_image = ""
 
+
+def set_setup(setup):
+    global CURRENT_SETUP
+    CURRENT_SETUP = setup

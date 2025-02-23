@@ -31,7 +31,9 @@ pip install --upgrade pip
 echo '------'
 echo 'pip install requirements.txt'
 pip install opencv-python
-pip install --no-cache-dir -r requirements.txt
+#pip install --no-cache-dir -r requirements.txt
+pip install pygame
+
 
 
 echo '------------'
