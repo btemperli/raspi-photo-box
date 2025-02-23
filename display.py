@@ -55,6 +55,21 @@ class Display():
         self.screen.blit(img, (0, 0))
         pygame.display.update()
 
+    def display_countdown_number(self, number):
+        countdown_font = pygame.font.Font(None, 800)
+
+        text = countdown_font.render(str(number), True, (255, 255, 255))
+        shadow = countdown_font.render(str(number), True, (0, 0, 0))  # Schwarzer Schatten
+
+        text_x = (glv.WINDOW_WIDTH - text.get_width()) // 2
+        text_y = (glv.WINDOW_HEIGHT - text.get_height()) // 2  # Leicht nach oben versetzt
+
+        # Erst Schatten, dann Text für besseren Kontrast
+        self.screen.blit(shadow, (text_x + 3, text_y + 3))
+        self.screen.blit(text, (text_x, text_y))
+
+        pygame.display.update()
+
     def check_pygame(self):
         print("check pygame")
         print(pygame)

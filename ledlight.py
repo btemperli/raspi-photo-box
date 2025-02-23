@@ -1,6 +1,7 @@
 import board
 import neopixel
 import time
+import global_variables as glv
 
 
 class LedLight():
@@ -27,6 +28,8 @@ class LedLight():
             pixel_order=self.ORDER
         )
 
+        self.show_black()
+
     def ledShowTest(self):
         self.pixels.fill(self.ORANGE)
         self.pixels[0] = self.RED
@@ -46,17 +49,27 @@ class LedLight():
         self.pixels.fill(self.GREEN)
         self.pixels.show()
 
-    def show_green_time(self, duration):
-        self.show_green()
-        time.sleep(duration)
-
     def show_red(self):
         self.pixels.fill(self.RED)
         self.pixels.show()
 
+    def show_black(self):
+        self.pixels.fill(self.BLACK)
+        self.pixels.show()
+
+    def show_green_time(self, duration):
+        self.show_green()
+        time.sleep(duration)
+
     def show_red_time(self, duration):
         self.show_red()
         time.sleep(duration)
+
+    def flash(self):
+        self.pixels.brightness = 1
+        self.pixels.fill(self.WHITE)
+        time.sleep(glv.TIME_FLASH)
+        self.pixels.brightness = self.BRIGHTNESS
 
     def show_turnaround(self, color_background, color_main, led_start, led_stop, turnarounds):
         for k in range(turnarounds):

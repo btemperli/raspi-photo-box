@@ -23,12 +23,29 @@ class ButtonHandler():
         self.pulse_buttons_running = None
         self.thread_pulse = None
 
+    def start_countdown(self):
+        glv.EVENT_RUNNING_PHOTO = True
+        glv.INSTANCE_LEDFONT.stop()
+
+        for i in range(3, 0, -1):
+            print('countdown:', i)
+            glv.INSTANCE_DISPLAY.display_countdown_number(i)
+            thread_font = threading.Thread(target=glv.INSTANCE_LEDFONT.showRed, args=(glv.TIME_COUNTDOWN_NUMBER,))
+            thread_left = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_lt)
+            thread_right = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_rt)
+            thread_font.start()
+            thread_left.start()
+            thread_right.start()
+            thread_font.join()
+            thread_left.join()
+            thread_right.join()
+
+        glv.EVENTS.take_a_photo()
+
     def start_pulsing(self):
         self.pulse_buttons_running = True
-        self.thread_pulse = threading.Thread(target=self.pulse_buttons())
+        self.thread_pulse = threading.Thread(target=self.pulse_buttons)
         self.thread_pulse.start()
-
-        # self.BUTTON_LG_RED.when_released = self.btn_lg_red_released
 
     def pulse_buttons(self):
         while self.pulse_buttons_running:
@@ -63,18 +80,7 @@ class ButtonHandler():
         if glv.DEBUG:
             print("LG red gedrueckt")
 
-        glv.INSTANCE_LEDFONT.stop()
-        thread_font = threading.Thread(target=glv.INSTANCE_LEDFONT.showRed, args=(2,))
-        thread_left = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_lt)
-        thread_right = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_rt)
-        thread_font.start()
-        thread_left.start()
-        thread_right.start()
-        thread_font.join()
-        thread_left.join()
-        thread_right.join()
-        glv.INSTANCE_LEDLIGHT.stop()
-        glv.INSTANCE_LEDFONT.restart_show()
+        self.start_countdown()
 
     def shut_down(self):
         if glv.DEBUG:

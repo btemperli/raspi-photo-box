@@ -3,6 +3,7 @@ import neopixel
 import time
 import random
 import threading
+import global_variables as glv
 
 
 class LedFont():
@@ -210,6 +211,12 @@ class LedFont():
 
     def showRed(self, duration=DURATION):
         self.show(self.INV_RED, duration)
+
+    def show_white(self, duration=DURATION):
+        self.show(self.INV_WHITE, duration)
+
+    def flash(self):
+        self.show_white(glv.TIME_FLASH)
 
     def start_show(self):
         self.show_pixels = True

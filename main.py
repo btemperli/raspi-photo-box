@@ -33,7 +33,7 @@ def reset_photo_taking():
     print("todo: upload photo (" + glv.last_image + ")")
     # read last photo from glv.
     time.sleep(2)
-    glv.take_a_photo_running = False
+    glv.EVENT_RUNNING_PHOTO = False
     restart()
 
 
@@ -60,6 +60,8 @@ print("-------------------------")
 run = True
 
 # events
+glv.EVENTS.take_a_photo += ledFont.show_white
+glv.EVENTS.take_a_photo += ledLight.flash
 glv.EVENTS.take_a_photo += photoTaker.shot
 glv.EVENTS.end_a_photo += reset_photo_taking
 

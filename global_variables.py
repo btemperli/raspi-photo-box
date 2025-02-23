@@ -16,12 +16,14 @@ PORT_BUTTON_SM_RED = 16 # green/brown
 PORT_BUTTON_SM_GRE = 20 # green/violet
 
 TIME_BUTTON_PULSE = 1.4
+TIME_COUNTDOWN_NUMBER = 2.2
+TIME_FLASH = 3
 
 SETUP_RAW = 'SETUP_RAW'
 SETUP_WITH_GROVE = 'SETUP_WITH_GROVE'
 CURRENT_SETUP = SETUP_RAW
 
-take_a_photo_running = False
+EVENT_RUNNING_PHOTO = False
 EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 

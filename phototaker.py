@@ -14,7 +14,7 @@ class PhotoTaker:
     camera = cv2.VideoCapture(0)
 
     img_file_name = 'image'
-    img_directory = '/home/pi/projects/raspi-photo-box/images'
+    img_directory = '/home/photobox/projects/raspi-photo-box/images'
     image = None
     image_ready = False
 
@@ -63,14 +63,14 @@ class PhotoTaker:
                 print("attribute error")
                 pass
 
-
     def shot(self):
-
         print("photo aufnehmen start.")
         ret, frame = self.camera.read()
         image_name = self.get_next_image_name()
 
         if ret:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            frame = np.rot90(frame, 3)
             cv2.imwrite(image_name, frame)
             glv.last_image = image_name
 
@@ -85,7 +85,7 @@ class PhotoTaker:
         # cv2.imwrite(image_name, self.image)
         # glv.last_image = image_name
         print("photo aufnehmen stop.")
-        glv.events.end_a_photo()
+        glv.EVENTS.end_a_photo()
 
     def shut_down(self):
         if glv.DEBUG:
