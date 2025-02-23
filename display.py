@@ -56,3 +56,8 @@ class Display():
             # self.label.config(text="\n\n\n")
             # self.label.config(width=glv.window_width)
             # self.label["background"] = "white"
+
+    def shut_down(self):
+        if glv.DEBUG:
+            print("display is shutting down")
+        glv.PYGAME.quit()

@@ -22,8 +22,8 @@ class PhotoTaker:
         video_stream_thread.daemon = True
         video_stream_thread.start()
 
-        bring_image_thread = threading.Thread(target=self.update_video_image)
-        bring_image_thread.start()
+        # bring_image_thread = threading.Thread(target=self.update_video_image)
+        # bring_image_thread.start()
 
     def get_next_image_name(self):
         regex_files = self.img_directory + '/' + self.img_file_name + '_*.jpg'
@@ -34,10 +34,17 @@ class PhotoTaker:
 
     def stream_video_as_thread(self):
         while True:
-            if self.camera.isOpened():
-                ret, self.image = self.camera.read()
-                self.image_ready = True
-            time.sleep(0.01)
+            ret, frame = self.camera.read()
+            if ret:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # frame = np.rot90(frame)  # Falls Kamera verdreht
+                frame = glv.PYGAME.surfarray.make_surface(frame)
+                frame = glv.PYGAME.transform.scale(frame, (800, 480))
+                glv.SCREEN.blit(frame, (0, 0))
+            # if self.camera.isOpened():
+            #     ret, self.image = self.camera.read()
+            #     self.image_ready = True
+            # time.sleep(0.01)
 
     def update_video_image(self):
         while True:
@@ -75,3 +82,8 @@ class PhotoTaker:
         # glv.last_image = image_name
         print("photo aufnehmen stop.")
         glv.events.end_a_photo()
+
+    def shut_down(self):
+        if glv.DEBUG:
+            print("phototaker is shutting down")
+        self.camera.release()

@@ -1,6 +1,8 @@
 import photoboxevents
 # import tkinter as tk
 
+DEBUG = True
+
 WINDOW_HEIGHT = 600 #768
 WINDOW_WIDTH = 800 #1280
 
@@ -19,6 +21,8 @@ take_a_photo_running = False
 EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 
+PYGAME = None
+SCREEN = None
 
 def set_setup(setup):
     global CURRENT_SETUP

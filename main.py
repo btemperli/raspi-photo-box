@@ -8,6 +8,13 @@ import display
 # glv.init_variables()
 
 
+def shut_down():
+    display.shut_down()
+    photoTaker.shut_down()
+    if glv.DEBUG:
+        print("main.py is shutting down")
+
+
 def restart():
     ledFont.ledFontStartShow()
 
@@ -21,7 +28,7 @@ def reset_photo_taking():
 
 
 # other classes
-taker = phototaker.PhotoTaker()
+photoTaker = phototaker.PhotoTaker()
 ledFont = ledfont.LedFont()
 buttonHandler = buttonhandler.ButtonHandler()
 display = display.Display()
@@ -53,7 +60,9 @@ while run:
     except IOError:
         print('IOError')
         run = False
+        shut_down()
 
     except KeyboardInterrupt:
         print('good bye')
         run = False
+        shut_down()
