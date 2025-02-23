@@ -2,6 +2,7 @@ import phototaker
 import time
 import global_variables as glv
 import ledfont
+import ledlight
 import buttonhandler
 import display
 
@@ -11,13 +12,20 @@ import display
 def shut_down():
     display.shut_down()
     photoTaker.shut_down()
-    ledfont.stop()
+    buttonHandler.shut_down()
+    ledFont.stop()
+    ledLight.stop()
     if glv.DEBUG:
         print("main.py is shutting down")
 
 
 def restart():
-    ledFont.ledFontStartShow()
+    if glv.DEBUG:
+        print("restart: ledfont / start show")
+    ledFont.restart_show()
+    if glv.DEBUG:
+        print("restart: buttonhandler / start pulsing")
+    buttonHandler.start_pulsing()
 
 
 def reset_photo_taking():
@@ -33,6 +41,11 @@ display = display.Display()
 glv.INSTANCE_DISPLAY = display
 
 ledFont = ledfont.LedFont()
+glv.INSTANCE_LEDFONT = ledFont
+
+ledLight = ledlight.LedLight()
+glv.INSTANCE_LEDLIGHT = ledLight
+
 buttonHandler = buttonhandler.ButtonHandler()
 
 # needs to be after display
@@ -52,6 +65,7 @@ glv.EVENTS.end_a_photo += reset_photo_taking
 # prepare
 if (glv.DEBUG):
     print("start running main program")
+
 restart()
 
 while run:

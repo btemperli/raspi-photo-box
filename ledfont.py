@@ -2,6 +2,8 @@ import board
 import neopixel
 import time
 import random
+import threading
+
 
 class LedFont():
 
@@ -37,6 +39,8 @@ class LedFont():
             auto_write=False,
             pixel_order=neopixel.RGB
         )
+
+        self.thread_show = None
 
     def ledShowFontRainbowSlide(self):
         while self.show_pixels:
@@ -123,7 +127,7 @@ class LedFont():
             i += 1
 
 
-    def ledFontStartShow(self):
+    def run_show(self):
         possibleFunctions = [
             self.ledFontBlinkOrange,
             self.showOrange,
@@ -191,16 +195,31 @@ class LedFont():
 
     def showOrange(self, duration=DURATION):
         self.show(self.INV_ORANGE, duration)
+
     def showOrangeLight(self, duration=DURATION):
         self.show(self.INV_ORANGE_LIGHT, duration)
+
     def showMagenta(self, duration=DURATION):
         self.show(self.INV_MAGENTA, duration)
+
     def showViolet(self, duration=DURATION):
         self.show(self.INV_VIOLET, duration)
+
     def showGreen(self, duration=DURATION):
         self.show(self.INV_GREEN, duration)
+
+    def showRed(self, duration=DURATION):
+        self.show(self.INV_RED, duration)
+
+    def start_show(self):
+        self.show_pixels = True
+        self.thread_show = threading.Thread(target=self.run_show)
+        self.thread_show.start()
 
     def stop(self):
         self.show_pixels = False
         self.pixels_font.fill(self.INV_BLACK)
         self.pixels_font.show()
+
+    def restart_show(self):
+        self.start_show()
