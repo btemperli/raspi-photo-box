@@ -1,5 +1,5 @@
 import photoboxevents
-import tkinter as tk
+# import tkinter as tk
 
 WINDOW_HEIGHT = 600 #768
 WINDOW_WIDTH = 800 #1280
