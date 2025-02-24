@@ -4,7 +4,7 @@ import time
 import global_variables as glv
 
 
-class LedLight():
+class LedLight:
 
     ORDER = neopixel.GRBW
     BRIGHTNESS = 0.2
@@ -30,7 +30,7 @@ class LedLight():
 
         self.show_black()
 
-    def ledShowTest(self):
+    def led_show_test(self):
         self.pixels.fill(self.ORANGE)
         self.pixels[0] = self.RED
         self.pixels[23] = self.WHITE2

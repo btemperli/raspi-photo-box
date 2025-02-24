@@ -6,8 +6,6 @@ import ledlight
 import buttonhandler
 import display
 
-# glv.init_variables()
-
 
 def shut_down():
     display.shut_down()
@@ -37,13 +35,19 @@ def reset_photo_taking():
     restart()
 
 
+if glv.DEBUG:
+    print("(main.py) start initiating display")
 # load all the other classes
 display = display.Display()
 glv.INSTANCE_DISPLAY = display
 
+if glv.DEBUG:
+    print("(main.py) start initiating ledFont")
 ledFont = ledfont.LedFont()
 glv.INSTANCE_LEDFONT = ledFont
 
+if glv.DEBUG:
+    print("(main.py) start initiating ledLight")
 ledLight = ledlight.LedLight()
 glv.INSTANCE_LEDLIGHT = ledLight
 

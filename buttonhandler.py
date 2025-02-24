@@ -4,7 +4,7 @@ import time
 import global_variables as glv
 
 
-class ButtonHandler():
+class ButtonHandler:
 
     LED_LG_RED = gpiozero.PWMLED(glv.PORT_LED_LG_RED)
     LED_SM_RED = gpiozero.PWMLED(glv.PORT_LED_SM_RED)

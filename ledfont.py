@@ -6,7 +6,7 @@ import threading
 import global_variables as glv
 
 
-class LedFont():
+class LedFont:
 
     INV_ORANGE = (255, 127, 0)
     INV_ORANGE_LIGHT = (255, 127+50, 50)
@@ -43,16 +43,16 @@ class LedFont():
 
         self.thread_show = None
 
-    def ledShowFontRainbowSlide(self):
+    def led_show_font_rainbow_slide(self):
         while self.show_pixels:
             colors = [self.INV_RED, self.INV_YELLOW, self.INV_GREEN, self.INV_CYAN, self.INV_BLUE, self.INV_MAGENTA]
             for _ in range(len(colors)):
                 for _ in colors:
-                    self.ledFontF(colors[0])
-                    self.ledFontO1(colors[1])
-                    self.ledFontT(colors[2])
-                    self.ledFontO2(colors[3])
-                    self.ledFontS(colors[4])
+                    self.colorize_letter_f(colors[0])
+                    self.colorize_letter_o1(colors[1])
+                    self.colorize_letter_t(colors[2])
+                    self.colorize_letter_o2(colors[3])
+                    self.colorize_letter_s(colors[4])
                 colors.insert(0, colors.pop())
                 time.sleep(1)
                 if not self.show_pixels:
@@ -65,17 +65,17 @@ class LedFont():
             if not self.show_pixels:
                 self.stop()
 
-    def ledFontBlinkOrange(self, duration=16):
+    def led_font_blink_orange(self, duration=16):
         i = 0
         while self.show_pixels and i < duration:
             colors = [self.INV_ORANGE, self.INV_ORANGE_LIGHT, self.INV_ORANGE, self.INV_ORANGE_LIGHT, self.INV_ORANGE]
             for _ in range(len(colors)):
                 for _ in colors:
-                    self.ledFontF(colors[0])
-                    self.ledFontO1(colors[1])
-                    self.ledFontT(colors[2])
-                    self.ledFontO2(colors[3])
-                    self.ledFontS(colors[4])
+                    self.colorize_letter_f(colors[0])
+                    self.colorize_letter_o1(colors[1])
+                    self.colorize_letter_t(colors[2])
+                    self.colorize_letter_o2(colors[3])
+                    self.colorize_letter_s(colors[4])
                 colors.insert(0, colors.pop())
                 time.sleep(0.25)
                 if not self.show_pixels:
@@ -83,7 +83,7 @@ class LedFont():
                     break
             i += 1
 
-    def ledFontSinglePoint(self, duration=DURATION, double=False):
+    def led_font_single_point(self, duration=DURATION, double=False):
         i = 0
         colorMain = self.INV_ORANGE
         colorDot = self.INV_WHITE
@@ -99,7 +99,7 @@ class LedFont():
                 dot += 1
             i += 1
 
-    def ledFontFillLetters(self, duration, colorStart, colorFill, blink=True):
+    def led_font_fill_letters(self, duration, colorStart, colorFill, blink=True):
         i = 0
         while self.show_pixels and i < duration:
             dot = 0
@@ -127,36 +127,35 @@ class LedFont():
                 dot += 1
             i += 1
 
-
     def run_show(self):
         possibleFunctions = [
-            self.ledFontBlinkOrange,
-            self.showOrange,
-            self.showMagenta,
-            self.showViolet,
-            self.showOrangeLight,
+            self.led_font_blink_orange,
+            self.show_orange,
+            self.show_magenta,
+            self.show_violet,
+            self.show_orange_light,
             [
-                self.ledFontSinglePoint,
+                self.led_font_single_point,
                 [self.DURATION, True]
             ],
             [
-                self.ledFontSinglePoint,
+                self.led_font_single_point,
                 [self.DURATION, False]
             ],
             [
-                self.ledFontFillLetters,
+                self.led_font_fill_letters,
                 [self.DURATION * 2, self.INV_ORANGE, self.INV_WHITE, False]
             ],
             [
-                self.ledFontFillLetters,
+                self.led_font_fill_letters,
                 [self.DURATION * 2, self.INV_ORANGE, self.INV_ORANGE_LIGHT]
             ],
             [
-                self.ledFontFillLetters,
+                self.led_font_fill_letters,
                 [self.DURATION * 2, self.INV_MAGENTA, self.INV_VIOLET, False]
             ],
             [
-                self.ledFontFillLetters,
+                self.led_font_fill_letters,
                 [self.DURATION * 2, self.INV_MAGENTA, self.INV_VIOLET]
             ]
         ]
@@ -171,42 +170,44 @@ class LedFont():
                 args = possibleFunctions[index][1]
                 possibleFunctions[index][0](*args)
 
-
-    def ledFontShowFullLetter(self, color, start, length):
+    def led_font_show_full_letter(self, color, start, length):
         for i in range(start, start + length):
             self.pixels_font[i] = color
         self.pixels_font.show()
 
+    def colorize_letter_f(self, color):
+        self.led_font_show_full_letter(color, self.LED_F_START, 8)
 
-    def ledFontF(self, color):
-        self.ledFontShowFullLetter(color, self.LED_F_START, 8)
-    def ledFontO1(self, color):
-        self.ledFontShowFullLetter(color, 8, 8)
-    def ledFontT(self, color):
-        self.ledFontShowFullLetter(color, 16, 7)
-    def ledFontO2(self, color):
-        self.ledFontShowFullLetter(color, 23, 8)
-    def ledFontS(self, color):
-        self.ledFontShowFullLetter(color, 31, 8)
+    def colorize_letter_o1(self, color):
+        self.led_font_show_full_letter(color, 8, 8)
+
+    def colorize_letter_t(self, color):
+        self.led_font_show_full_letter(color, 16, 7)
+
+    def colorize_letter_o2(self, color):
+        self.led_font_show_full_letter(color, 23, 8)
+
+    def colorize_letter_s(self, color):
+        self.led_font_show_full_letter(color, 31, 8)
 
     def show(self, color, duration):
         self.pixels_font.fill(color)
         self.pixels_font.show()
         time.sleep(duration)
 
-    def showOrange(self, duration=DURATION):
+    def show_orange(self, duration=DURATION):
         self.show(self.INV_ORANGE, duration)
 
-    def showOrangeLight(self, duration=DURATION):
+    def show_orange_light(self, duration=DURATION):
         self.show(self.INV_ORANGE_LIGHT, duration)
 
-    def showMagenta(self, duration=DURATION):
+    def show_magenta(self, duration=DURATION):
         self.show(self.INV_MAGENTA, duration)
 
-    def showViolet(self, duration=DURATION):
+    def show_violet(self, duration=DURATION):
         self.show(self.INV_VIOLET, duration)
 
-    def showGreen(self, duration=DURATION):
+    def show_green(self, duration=DURATION):
         self.show(self.INV_GREEN, duration)
 
     def showRed(self, duration=DURATION):
