@@ -27,11 +27,11 @@ class Display():
 
         self.display_black()
 
-    def update_display(self):
-        if self.show_video:
-            self.show_video_stream()
-        else:
-            self.start_countdown()
+    # def update_display(self):
+    #     if self.show_video:
+    #         self.show_video_stream()
+    #     else:
+    #         self.start_countdown()
 
     def update_video_stream_frame(self, frame):
         frame = pygame.surfarray.make_surface(frame)
@@ -79,7 +79,7 @@ class Display():
 
         box_x = (glv.WINDOW_WIDTH - box_width) // 2
         box_y = glv.WINDOW_HEIGHT - box_height - margin_bottom
-        pygame.draw.rect(self.screen, self.TURQUOISE, (box_x, box_y, box_width, box_height), border_radius=10)
+        pygame.draw.rect(self.screen, self.TURQUOISE, pygame.Rect(box_x, box_y, box_width, box_height), 2, 10)
 
         outline_pos = (
             box_x + (box_width - outline_rect.width) // 2,
@@ -111,33 +111,18 @@ class Display():
         self.screen.blit(shadow, (text_x + 3, text_y + 3))
         self.screen.blit(text, (text_x, text_y))
 
-
     def check_pygame(self):
         print("check pygame")
         print(pygame)
+        print(pygame.version.ver, '//', pygame.version.vernum)
 
-    def show_video_stream(self):
-        # In diesem Beispiel wird eine graue Box angezeigt.
-        print("todo: show video stream")
-
-    def start_countdown(self):
-        print("start countdown")
-        self.show_video_stream()  # Zeigen Sie die graue Box an
-        # glv.root_window.after(1000, self.update_countdown, 3)
-
-    # def update_countdown(self, count):
-    #     if glv.DEBUG:
-    #         print("todo: update countdown", count)
-        # if count > 0:
-            # self.label.config(image=None, text="")
-            # self.label["background"] = "orange"
-            # self.label.config(width=(glv.window_width / 2))
-            # self.label.config(text="\n" + str(count) + "\n")
-            # glv.root_window.after(1000, self.update_countdown, count - 1)
-        # else:
-            # self.label.config(text="\n\n\n")
-            # self.label.config(width=glv.window_width)
-            # self.label["background"] = "white"
+    # def show_video_stream(self):
+    #     # In diesem Beispiel wird eine graue Box angezeigt.
+    #     print("todo: show video stream")
+    #
+    # def start_countdown(self):
+    #     print("start countdown")
+    #     self.show_video_stream()  # Zeigen Sie die graue Box an
 
     def shut_down(self):
         if glv.DEBUG:
