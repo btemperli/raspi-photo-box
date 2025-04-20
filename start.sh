@@ -18,10 +18,10 @@ pip install --upgrade pip
 
 echo '------'
 echo 'pip install the required libraries'
-pip install opencv-python
-pip install events
-pip install pygame
-pip install python-dotenv
+sudo pip3 install opencv-python
+sudo pip3 install events
+sudo pip3 install pygame
+sudo pip3 install python-dotenv
 
 echo '------------'
 echo 'READY TO USE'
