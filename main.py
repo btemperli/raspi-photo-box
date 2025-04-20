@@ -78,11 +78,10 @@ glv.EVENTS.end_a_photo += reset_photo_taking
 glv.EVENTS.end_a_photo += photoTaker.show_live_video
 
 if glv.DEBUG:
-    print("all events are registered.")
-    print(glv.EVENTS)
-    print('length of events: ', len(glv.EVENTS))
+    print("all events are registered: ")
+    print(' . length of events: ', len(glv.EVENTS))
     for event in glv.EVENTS:
-        print('event', event.__name__)
+        print(' . event', event.__name__)
 
 # prepare
 if (glv.DEBUG):
