@@ -79,7 +79,7 @@ class Display():
 
         box_x = (glv.WINDOW_WIDTH - box_width) // 2
         box_y = glv.WINDOW_HEIGHT - box_height - margin_bottom
-        pygame.draw.rect(self.screen, self.TURQUOISE, pygame.Rect(box_x, box_y, box_width, box_height), 2, 10)
+        pygame.draw.rect(self.screen, self.TURQUOISE, pygame.Rect(box_x, box_y, box_width, box_height))
 
         outline_pos = (
             box_x + (box_width - outline_rect.width) // 2,
