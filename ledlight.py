@@ -68,8 +68,9 @@ class LedLight:
     def flash(self):
         self.pixels.brightness = 1
         self.pixels.fill(self.WHITE)
-        time.sleep(glv.TIME_FLASH)
+        # time.sleep(glv.TIME_FLASH)
         self.pixels.brightness = self.BRIGHTNESS
+        self.pixels.show()
 
     def show_turnaround(self, color_background, color_main, led_start, led_stop, turnarounds, delay=0.1):
         for k in range(turnarounds):

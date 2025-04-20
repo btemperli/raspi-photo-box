@@ -66,7 +66,7 @@ print("-------------------------")
 run = True
 
 # events
-glv.EVENTS.take_a_photo += ledFont.show_white
+glv.EVENTS.take_a_photo += ledFont.set_white
 glv.EVENTS.take_a_photo += ledLight.flash
 glv.EVENTS.take_a_photo += photoTaker.shot
 glv.EVENTS.end_a_photo += reset_photo_taking

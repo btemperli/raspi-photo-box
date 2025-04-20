@@ -216,6 +216,9 @@ class LedFont:
     def show_white(self, duration=DURATION):
         self.show(self.INV_WHITE, duration)
 
+    def set_white(self):
+        self.show(self.INV_WHITE, 0)
+
     def flash(self):
         self.show_white(glv.TIME_FLASH)
 
