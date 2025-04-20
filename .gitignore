@@ -1,4 +1,6 @@
+.env
 images/image_*.jpg
+
 __pycache__
 
 .idea

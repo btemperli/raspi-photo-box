@@ -1,5 +1,6 @@
 import photoboxevents
-# import tkinter as tk
+import os
+from dotenv import load_dotenv
 
 DEBUG = True
 
@@ -31,6 +32,10 @@ INSTANCE_DISPLAY = None
 INSTANCE_LEDFONT = None
 INSTANCE_LEDLIGHT = None
 
+# .env-Variables
+load_dotenv()
+ENV_PHOTOBOX_TOKEN = os.getenv('PHOTOBOX_TOKEN')
+ENV_PHOTOBOX_URL_UPLOAD = os.getenv('PHOTOBOX_URL_UPLOAD')
 
 def set_setup(setup):
     global CURRENT_SETUP
