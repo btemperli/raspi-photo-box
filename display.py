@@ -20,6 +20,7 @@ class Display():
         self.show_video = True
         self.video_stream_number = None
         self.output_message = None
+        self.program_running = True
 
         self.stream_frame_width = int(glv.CAMERA_WIDTH * 0.6)
         self.stream_frame_height = int(glv.CAMERA_HEIGHT * 0.6)
@@ -31,15 +32,17 @@ class Display():
     def update_video_stream_frame(self, frame):
         frame = pygame.surfarray.make_surface(frame)
         frame = pygame.transform.scale(frame, (self.stream_frame_width, self.stream_frame_height))
-        self.screen.blit(frame, (self.stream_frame_tl_x, self.stream_frame_tl_y))
 
-        if self.video_stream_number:
-            self.display_countdown_number()
+        if self.program_running:
+            self.screen.blit(frame, (self.stream_frame_tl_x, self.stream_frame_tl_y))
 
-        if self.output_message:
-            self.display_output_message()
+            if self.video_stream_number:
+                self.display_countdown_number()
 
-        pygame.display.update()
+            if self.output_message:
+                self.display_output_message()
+
+            pygame.display.update()
 
     def display_image(self, image_name):
         img = pygame.image.load(image_name)
@@ -117,6 +120,8 @@ class Display():
         print(pygame.version.ver, '//', pygame.version.vernum)
 
     def shut_down(self):
+        self.program_running = False
+
         if glv.DEBUG:
             print("display is shutting down")
         pygame.display.quit()
