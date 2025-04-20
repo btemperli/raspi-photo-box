@@ -21,6 +21,7 @@ echo 'pip install the required libraries'
 pip install opencv-python
 pip install events
 pip install pygame
+pip install python-dotenv
 
 echo '------------'
 echo 'READY TO USE'
