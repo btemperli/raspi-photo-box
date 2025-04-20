@@ -50,8 +50,8 @@ class PhotoUploader:
         try:
             with open(image_path, 'rb') as image_file:
                 files = {'photo': image_file}
-                headers = {'token': token}
-                response = requests.post(upload_url, files=files, headers=headers)
+                data = {'token': token}
+                response = requests.post(upload_url, files=files, data=data)
 
             if response.status_code == 200:
                 self.message_output = "Photo uploaded!"
