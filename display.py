@@ -62,9 +62,9 @@ class Display():
     def set_output_message(self, message):
         self.output_message = message
         self.display_frame_border()
-        self.display_output_message()
+        self.display_output_message(True)
 
-    def display_output_message(self):
+    def display_output_message(self, refresh=False):
         message_font = pygame.font.Font(None, 60)
         text_outline = message_font.render(self.output_message, True, self.DARK_TURQUOISE)
         text_inner = message_font.render(self.output_message, True, self.TEXT_COLOR)
@@ -85,11 +85,11 @@ class Display():
         text_x = box_x + (box_width - outline_rect.width) // 2
         text_y = box_y + (box_height - outline_rect.height) // 2
 
-        # inner_rect = text_inner.get_rect(center=text_outline.get_rect(topleft=outline_pos).center)
-
         self.screen.blit(text_outline, (text_x + 3, text_y + 3))
         self.screen.blit(text_inner, (text_x, text_y))
-        pygame.display.update()
+
+        if refresh:
+            pygame.display.update()
 
     def display_black(self):
         self.screen.fill(self.BACKGROUND)
@@ -99,8 +99,7 @@ class Display():
         pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
         pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
         pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(glv.WINDOW_WIDTH - self.stream_frame_tl_x, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
-        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(glv.WINDOW_HEIGHT - self.stream_frame_tl_y, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
-
+        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, glv.WINDOW_HEIGHT - self.stream_frame_tl_y, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
         pygame.display.update()
 
     def display_countdown_number(self):
