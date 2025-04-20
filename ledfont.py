@@ -12,6 +12,8 @@ class LedFont:
     INV_ORANGE_LIGHT = (255, 127+50, 50)
     INV_YELLOW = (255, 255, 0)
     INV_RED = (255, 0, 0)
+    INV_RED_LIGHT = (255, 85, 85)
+    INV_RED_LIGHTER = (255, 170, 170)
     INV_GREEN = (0, 255, 0)
     INV_BLUE = (0, 0, 255)
     INV_CYAN = (0, 255, 255)
@@ -219,14 +221,14 @@ class LedFont:
     def set_white(self):
         self.show(self.INV_WHITE, 0)
 
-    def set_orange(self):
-        self.show(self.INV_ORANGE, 0)
-
     def set_red(self):
         self.show(self.INV_RED, 0)
 
-    def set_violet(self):
-        self.show(self.INV_VIOLET, 0)
+    def set_red_light(self):
+        self.show(self.INV_RED_LIGHT, 0)
+
+    def set_red_lighter(self):
+        self.show(self.INV_RED_LIGHTER, 0)
 
 
     def flash(self):

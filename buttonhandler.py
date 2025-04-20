@@ -28,9 +28,9 @@ class ButtonHandler:
         glv.INSTANCE_LEDFONT.stop()
 
         targets = [0,
-                   glv.INSTANCE_LEDFONT.set_orange,
-                   glv.INSTANCE_LEDFONT.set_red,
-                   glv.INSTANCE_LEDFONT.set_violet]
+                   glv.INSTANCE_LEDFONT.set_red_lighter,
+                   glv.INSTANCE_LEDFONT.set_red_light,
+                   glv.INSTANCE_LEDFONT.set_red]
 
         for i in range(3, 0, -1):
             if glv.DEBUG:
