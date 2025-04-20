@@ -210,7 +210,7 @@ class LedFont:
     def show_green(self, duration=DURATION):
         self.show(self.INV_GREEN, duration)
 
-    def showRed(self, duration=DURATION):
+    def show_red(self, duration=DURATION):
         self.show(self.INV_RED, duration)
 
     def show_white(self, duration=DURATION):
@@ -218,6 +218,16 @@ class LedFont:
 
     def set_white(self):
         self.show(self.INV_WHITE, 0)
+
+    def set_orange(self):
+        self.show(self.INV_ORANGE, 0)
+
+    def set_red(self):
+        self.show(self.INV_RED, 0)
+
+    def set_violet(self):
+        self.show(self.INV_VIOLET, 0)
+
 
     def flash(self):
         self.show_white(glv.TIME_FLASH)
