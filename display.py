@@ -28,12 +28,6 @@ class Display():
 
         self.display_black()
 
-    # def update_display(self):
-    #     if self.show_video:
-    #         self.show_video_stream()
-    #     else:
-    #         self.start_countdown()
-
     def update_video_stream_frame(self, frame):
         frame = pygame.surfarray.make_surface(frame)
         frame = pygame.transform.scale(frame, (self.stream_frame_width, self.stream_frame_height))
@@ -109,13 +103,12 @@ class Display():
             return
 
         text = countdown_font.render(str(self.video_stream_number), True, self.TEXT_COLOR)
-        shadow = countdown_font.render(str(self.video_stream_number), True, self.DARK_TURQUOISE)  # Schwarzer Schatten
+        shadow = countdown_font.render(str(self.video_stream_number), True, self.DARK_TURQUOISE)
 
         text_x = (glv.WINDOW_WIDTH - text.get_width()) // 2
-        text_y = (glv.WINDOW_HEIGHT - text.get_height()) // 2  # Leicht nach oben versetzt
+        text_y = (glv.WINDOW_HEIGHT - text.get_height()) // 2
 
-        # Erst Schatten, dann Text für besseren Kontrast
-        self.screen.blit(shadow, (text_x + 3, text_y + 3))
+        self.screen.blit(shadow, (text_x + 5, text_y + 5))
         self.screen.blit(text, (text_x, text_y))
 
     def check_pygame(self):
@@ -123,17 +116,8 @@ class Display():
         print(pygame)
         print(pygame.version.ver, '//', pygame.version.vernum)
 
-    # def show_video_stream(self):
-    #     # In diesem Beispiel wird eine graue Box angezeigt.
-    #     print("todo: show video stream")
-    #
-    # def start_countdown(self):
-    #     print("start countdown")
-    #     self.show_video_stream()  # Zeigen Sie die graue Box an
-
     def shut_down(self):
         if glv.DEBUG:
             print("display is shutting down")
-        # glv.PYGAME.quit()
         pygame.display.quit()
         pygame.quit()
