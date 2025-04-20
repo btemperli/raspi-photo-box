@@ -60,6 +60,7 @@ class Display():
 
     def set_output_message(self, message):
         self.output_message = message
+        self.display_black()
         self.display_output_message()
 
     def display_output_message(self):
