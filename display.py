@@ -64,8 +64,7 @@ class Display():
 
     def display_output_message(self):
         message_font = pygame.font.Font(None, 80)
-        message_font_outline = pygame.font.Font(None, 85)
-        text_outline = message_font_outline.render(self.output_message, True, self.DARK_TURQUOISE)
+        text_outline = message_font.render(self.output_message, True, self.DARK_TURQUOISE)
         text_inner = message_font.render(self.output_message, True, self.TEXT_COLOR)
         padding = 50
         margin_bottom = 50
@@ -81,14 +80,13 @@ class Display():
         box_y = glv.WINDOW_HEIGHT - box_height - margin_bottom
         pygame.draw.rect(self.screen, self.TURQUOISE, pygame.Rect(box_x, box_y, box_width, box_height))
 
-        outline_pos = (
-            box_x + (box_width - outline_rect.width) // 2,
-            box_y + (box_height - outline_rect.height) // 2
-        )
-        inner_rect = text_inner.get_rect(center=text_outline.get_rect(topleft=outline_pos).center)
+        text_x = box_x + (box_width - outline_rect.width) // 2
+        text_y = box_y + (box_height - outline_rect.height) // 2
 
-        self.screen.blit(text_outline, outline_pos)
-        self.screen.blit(text_inner, inner_rect)
+        # inner_rect = text_inner.get_rect(center=text_outline.get_rect(topleft=outline_pos).center)
+
+        self.screen.blit(text_outline, (text_x + 3, text_y + 3))
+        self.screen.blit(text_inner, (text_x, text_y))
         pygame.display.update()
 
     def display_black(self):
