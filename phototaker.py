@@ -93,6 +93,12 @@ class PhotoTaker:
         # glv.last_image = image_name
         if glv.DEBUG:
             print("phototaker: end_a_photo.")
+
+            print("all events are registered.")
+            print(glv.EVENTS)
+            print('length of events: ', len(glv.EVENTS))
+            for event in glv.EVENTS:
+                print('event', event.__name__)
         glv.EVENTS.end_a_photo()
 
     def shut_down(self):

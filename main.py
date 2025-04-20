@@ -37,9 +37,9 @@ def reset_photo_taking():
     restart()
 
 
+# load all the other classes
 if glv.DEBUG:
     print("(main.py) start initiating display")
-# load all the other classes
 display = display.Display()
 glv.INSTANCE_DISPLAY = display
 
@@ -53,9 +53,13 @@ if glv.DEBUG:
 ledLight = ledlight.LedLight()
 glv.INSTANCE_LEDLIGHT = ledLight
 
+if glv.DEBUG:
+    print("(main.py) start initiating buttonHandler")
 buttonHandler = buttonhandler.ButtonHandler()
 
 # needs to be after display
+if glv.DEBUG:
+    print("(main.py) start initiating photoTaker")
 photoTaker = phototaker.PhotoTaker()
 
 print("-------------------------")
@@ -75,10 +79,9 @@ glv.EVENTS.end_a_photo += photoTaker.show_live_video()
 if glv.DEBUG:
     print("all events are registered.")
     print(glv.EVENTS)
-    print('lenght of events: ', len(glv.EVENTS))
+    print('length of events: ', len(glv.EVENTS))
     for event in glv.EVENTS:
         print('event', event.__name__)
-
 
 # prepare
 if (glv.DEBUG):
