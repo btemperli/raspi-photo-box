@@ -28,6 +28,9 @@ EVENT_RUNNING_PHOTO = False
 EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 
+DIRECTORY_IMAGES_TAKEN = '/home/photobox/projects/raspi-photo-box/images'
+DIRECTORY_IMAGES_UPLOADED = '/home/photobox/projects/raspi-photo-box/uploaded'
+
 INSTANCE_DISPLAY = None
 INSTANCE_LEDFONT = None
 INSTANCE_LEDLIGHT = None

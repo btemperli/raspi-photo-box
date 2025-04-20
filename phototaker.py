@@ -14,7 +14,6 @@ class PhotoTaker:
     camera = cv2.VideoCapture(0)
 
     img_file_name = 'image'
-    img_directory = '/home/photobox/projects/raspi-photo-box/images'
     image = None
     image_ready = False
     video_stream_thread = None
@@ -36,11 +35,17 @@ class PhotoTaker:
         self.video_stream_thread.start()
 
     def get_next_image_name(self):
-        regex_files = self.img_directory + '/' + self.img_file_name + '_*.jpg'
+        regex_files = glv.DIRECTORY_IMAGES_TAKEN + '/' + self.img_file_name + '_*.jpg'
         all_files = glob.glob(regex_files)
-        count_files = len(all_files)
+        count_files_taken = len(all_files)
 
-        return self.img_directory + '/' + self.img_file_name + '_' + str(count_files) + '.jpg'
+        regex_files = glv.DIRECTORY_IMAGES_UPLOADED + '/' + self.img_file_name + '_*.jpg'
+        all_files = glob.glob(regex_files)
+        count_files_uploaded = len(all_files)
+
+        count_files = count_files_uploaded + count_files_taken
+
+        return glv.DIRECTORY_IMAGES_TAKEN + '/' + self.img_file_name + '_' + str(count_files) + '.jpg'
 
     def stream_video_as_thread(self):
         if glv.DEBUG:
