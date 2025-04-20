@@ -2,7 +2,16 @@
 
 ## Requirements
 
-### opencv
+- Raspberry Pi
+- Camera
+- LED's
 
-    $ sudo apt-get install libopencv-dev
-    $ sudo apt-get install python3-opencv
+## Setup
+
+Run the start-script to install all required libraries and start the photobox-app.
+
+    $ ./start.sh
+
+## Run
+
+    $ ./run.sh
