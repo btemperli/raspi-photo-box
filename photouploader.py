@@ -21,9 +21,9 @@ class PhotoUploader:
         if glv.DEBUG:
             print('output the message: ', self.message_output)
 
-        glv.INSTANCE_DISPLAY.set_message(self.message_output)
+        glv.INSTANCE_DISPLAY.set_output_message(self.message_output)
         time.sleep(20)
-        glv.INSTANCE_DISPLAY.set_message(None)
+        glv.INSTANCE_DISPLAY.set_output_message(None)
 
     def check_connection(self):
         self.connection = False
