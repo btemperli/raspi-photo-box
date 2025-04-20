@@ -32,7 +32,7 @@ class PhotoUploader:
         self.check_connection()
 
         if not self.connection:
-            self.message_output = "no connection..."
+            self.message_output = "no connection: photo will be uploaded later."
             self.thread_output = threading.Thread(target=self.output)
             self.thread_output.start()
 

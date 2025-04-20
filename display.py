@@ -9,6 +9,7 @@ class Display():
     TURQUOISE = (64, 224, 208)
     DARK_TURQUOISE = (0, 128, 128)
     TEXT_COLOR = (255, 255, 255)
+    BACKGROUND = (0, 11, 7)
 
     def __init__(self):
         pygame.init()
@@ -60,11 +61,11 @@ class Display():
 
     def set_output_message(self, message):
         self.output_message = message
-        self.display_black()
+        self.display_frame_border()
         self.display_output_message()
 
     def display_output_message(self):
-        message_font = pygame.font.Font(None, 80)
+        message_font = pygame.font.Font(None, 60)
         text_outline = message_font.render(self.output_message, True, self.DARK_TURQUOISE)
         text_inner = message_font.render(self.output_message, True, self.TEXT_COLOR)
         padding = 50
@@ -91,7 +92,15 @@ class Display():
         pygame.display.update()
 
     def display_black(self):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill(self.BACKGROUND)
+        pygame.display.update()
+
+    def display_frame_border(self):
+        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
+        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
+        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(glv.WINDOW_WIDTH - self.stream_frame_tl_x, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
+        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(glv.WINDOW_HEIGHT - self.stream_frame_tl_y, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
+
         pygame.display.update()
 
     def display_countdown_number(self):
