@@ -74,7 +74,7 @@ glv.EVENTS.take_a_photo += ledFont.set_white
 glv.EVENTS.take_a_photo += ledLight.flash
 glv.EVENTS.take_a_photo += photoTaker.shot
 glv.EVENTS.end_a_photo += reset_photo_taking
-glv.EVENTS.end_a_photo += photoTaker.show_live_video()
+glv.EVENTS.end_a_photo += photoTaker.show_live_video
 
 if glv.DEBUG:
     print("all events are registered.")
