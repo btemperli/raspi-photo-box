@@ -1,4 +1,4 @@
-images/image-*.jpg
+images/image_*.jpg
 __pycache__
 
 .idea
