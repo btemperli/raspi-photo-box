@@ -93,12 +93,6 @@ restart()
 while run:
     try:
         time.sleep(0.1)
-        # digitalInputButton = grovepi.digitalRead(buttonPort)
-
-        if False:
-            if not glv.take_a_photo_running:
-                glv.take_a_photo_running = True
-                glv.events.take_a_photo()
 
     except IOError:
         print('IOError')
