@@ -81,10 +81,10 @@ class LedLight:
                 time.sleep(delay)
 
     def turnaround_red_lt(self):
-        self.show_turnaround(self.BLACK, self.RED, 0, 23, 1, 0.05)
+        self.show_turnaround(self.BLACK, self.RED, 0, 23, 1, 0.025)
 
     def turnaround_red_rt(self):
-        self.show_turnaround(self.BLACK, self.RED, 24, 47, 1, 0.05)
+        self.show_turnaround(self.BLACK, self.RED, 24, 47, 1, 0.025)
 
     def turnaround_green_lt(self):
         self.show_turnaround(self.BLACK, self.GREEN, 0, 23, 1)

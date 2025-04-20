@@ -60,16 +60,19 @@ class PhotoTaker:
                 frame = np.rot90(frame, 3)
                 glv.INSTANCE_DISPLAY.update_video_stream_frame(frame)
 
-    def update_video_image(self):
-        while True:
-            try:
-                if self.image_ready:
-                    cv2.namedWindow("image")
-                    cv2.imshow('image shot', self.image)
-                    key = cv2.waitKey(1)
-            except AttributeError:
-                print("attribute error")
-                pass
+        if glv.DEBUG:
+            print("video stream has stopped.")
+
+    # def update_video_image(self):
+    #     while True:
+    #         try:
+    #             if self.image_ready:
+    #                 cv2.namedWindow("image")
+    #                 cv2.imshow('image shot', self.image)
+    #                 key = cv2.waitKey(1)
+    #         except AttributeError:
+    #             print("attribute error")
+    #             pass
 
     def shot(self):
         print("photo aufnehmen start.")
@@ -79,20 +82,20 @@ class PhotoTaker:
         if ret:
             self.video_stream_thread_running = False
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # frame = np.rot90(frame, 2) # flip image: (3 = rotated 90 to left)
+            frame = np.rot90(frame, 2) # flip image: (3 = rotated 90 to left)
             cv2.imwrite(image_name, frame)
             glv.last_image = image_name
 
             # Foto anzeigen
             glv.INSTANCE_DISPLAY.display_image(image_name)
 
-            time.sleep(2)  # Kurz anzeigen
+            time.sleep(3)  # Kurz anzeigen
 
         # photo_taken = True
         # led.value = 0
-
         # cv2.imwrite(image_name, self.image)
         # glv.last_image = image_name
+
         if glv.DEBUG:
             print("phototaker: end_a_photo.")
         glv.EVENTS.end_a_photo()

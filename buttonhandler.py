@@ -29,7 +29,7 @@ class ButtonHandler:
 
         for i in range(3, 0, -1):
             print('countdown:', i)
-            glv.INSTANCE_DISPLAY.display_countdown_number(i)
+            glv.INSTANCE_DISPLAY.set_video_stream_number(i)
             thread_font = threading.Thread(target=glv.INSTANCE_LEDFONT.showRed, args=(glv.TIME_COUNTDOWN_NUMBER,))
             thread_left = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_lt)
             thread_right = threading.Thread(target=glv.INSTANCE_LEDLIGHT.turnaround_red_rt)
@@ -39,6 +39,8 @@ class ButtonHandler:
             thread_font.join()
             thread_left.join()
             thread_right.join()
+
+        glv.INSTANCE_DISPLAY.reset_video_stream_number()
 
         if glv.DEBUG:
             print('call now glv.EVENTs.take_a_photo()')

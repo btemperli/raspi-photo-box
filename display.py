@@ -13,6 +13,7 @@ class Display():
         self.font = pygame.font.Font(None, 80)
         self.clock = pygame.time.Clock()
         self.show_video = True
+        self.video_stream_number = None
 
         self.stream_frame_width = int(glv.CAMERA_WIDTH * 0.6)
         self.stream_frame_height = int(glv.CAMERA_HEIGHT * 0.6)
@@ -46,6 +47,10 @@ class Display():
         frame = pygame.surfarray.make_surface(frame)
         frame = pygame.transform.scale(frame, (self.stream_frame_width, self.stream_frame_height))
         self.screen.blit(frame, (self.stream_frame_tl_x, self.stream_frame_tl_y))
+
+        if (self.video_stream_number):
+            self.display_countdown_number()
+
         pygame.display.update()
 
     def display_image(self, image_name):
@@ -54,15 +59,21 @@ class Display():
         self.screen.blit(img, (0, 0))
         pygame.display.update()
 
+    def set_video_stream_number(self, number):
+        self.video_stream_number = number
+
+    def reset_video_stream_number(self):
+        self.set_video_stream_number(None)
+
     def display_black(self):
         self.screen.fill((0, 0, 0))
         pygame.display.update()
 
-    def display_countdown_number(self, number):
+    def display_countdown_number(self):
         countdown_font = pygame.font.Font(None, 800)
 
-        text = countdown_font.render(str(number), True, (255, 255, 255))
-        shadow = countdown_font.render(str(number), True, (0, 0, 0))  # Schwarzer Schatten
+        text = countdown_font.render(str(self.video_stream_number), True, (255, 255, 255))
+        shadow = countdown_font.render(str(self.video_stream_number), True, (0, 0, 0))  # Schwarzer Schatten
 
         text_x = (glv.WINDOW_WIDTH - text.get_width()) // 2
         text_y = (glv.WINDOW_HEIGHT - text.get_height()) // 2  # Leicht nach oben versetzt
@@ -71,7 +82,6 @@ class Display():
         self.screen.blit(shadow, (text_x + 3, text_y + 3))
         self.screen.blit(text, (text_x, text_y))
 
-        pygame.display.update()
 
     def check_pygame(self):
         print("check pygame")
