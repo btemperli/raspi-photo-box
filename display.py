@@ -22,21 +22,6 @@ class Display():
 
         self.display_black()
 
-        # glv.set_pg(pygame)
-        # glv.set_screen(screen)
-
-        # glv.root_window.title("Countdown und Video-Stream")
-        # glv.root_window.geometry(str(glv.window_width) + "x" + str(glv.window_height))
-        #
-        # self.label = ttk.Label(glv.root_window, text="", font=("Helvetica", 144))
-        # self.label.pack(ipadx=200, ipady=100)
-        #
-        # self.show_video = tk.BooleanVar(value=True)
-        #
-        # ttk.Button(glv.root_window, text="Photo aufnehmen!", command=glv.events.take_a_photo).pack()
-        #
-        # self.show_video_stream()
-
     def update_display(self):
         if self.show_video:
             self.show_video_stream()
@@ -48,7 +33,7 @@ class Display():
         frame = pygame.transform.scale(frame, (self.stream_frame_width, self.stream_frame_height))
         self.screen.blit(frame, (self.stream_frame_tl_x, self.stream_frame_tl_y))
 
-        if (self.video_stream_number):
+        if self.video_stream_number:
             self.display_countdown_number()
 
         pygame.display.update()
@@ -71,6 +56,9 @@ class Display():
 
     def display_countdown_number(self):
         countdown_font = pygame.font.Font(None, 800)
+
+        if self.video_stream_number is None:
+            return
 
         text = countdown_font.render(str(self.video_stream_number), True, (255, 255, 255))
         shadow = countdown_font.render(str(self.video_stream_number), True, (0, 0, 0))  # Schwarzer Schatten
