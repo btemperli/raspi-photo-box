@@ -71,20 +71,20 @@ class LedLight:
         time.sleep(glv.TIME_FLASH)
         self.pixels.brightness = self.BRIGHTNESS
 
-    def show_turnaround(self, color_background, color_main, led_start, led_stop, turnarounds):
+    def show_turnaround(self, color_background, color_main, led_start, led_stop, turnarounds, delay=0.1):
         for k in range(turnarounds):
             for i in range(led_start, led_stop + 1):
                 for j in range(led_start, led_stop + 1):
                     self.pixels[j] = color_background
                 self.pixels[i] = color_main
                 self.pixels.show()
-                time.sleep(0.1)
+                time.sleep(delay)
 
     def turnaround_red_lt(self):
-        self.show_turnaround(self.BLACK, self.RED, 0, 23, 1)
+        self.show_turnaround(self.BLACK, self.RED, 0, 23, 1, 0.05)
 
     def turnaround_red_rt(self):
-        self.show_turnaround(self.BLACK, self.RED, 24, 47, 1)
+        self.show_turnaround(self.BLACK, self.RED, 24, 47, 1, 0.05)
 
     def turnaround_green_lt(self):
         self.show_turnaround(self.BLACK, self.GREEN, 0, 23, 1)

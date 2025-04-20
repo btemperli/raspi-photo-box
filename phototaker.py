@@ -91,7 +91,8 @@ class PhotoTaker:
 
         # cv2.imwrite(image_name, self.image)
         # glv.last_image = image_name
-        print("photo aufnehmen stop.")
+        if glv.DEBUG:
+            print("phototaker: end_a_photo.")
         glv.EVENTS.end_a_photo()
 
     def shut_down(self):
