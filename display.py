@@ -6,6 +6,10 @@ import pygame
 
 class Display():
 
+    TURQUOISE = (64, 224, 208)
+    DARK_TURQUOISE = (0, 128, 128)
+    TEXT_COLOR = (255, 255, 255)
+
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)  # Raspberry Pi Touchscreen
@@ -14,6 +18,7 @@ class Display():
         self.clock = pygame.time.Clock()
         self.show_video = True
         self.video_stream_number = None
+        self.output_message = None
 
         self.stream_frame_width = int(glv.CAMERA_WIDTH * 0.6)
         self.stream_frame_height = int(glv.CAMERA_HEIGHT * 0.6)
@@ -36,6 +41,9 @@ class Display():
         if self.video_stream_number:
             self.display_countdown_number()
 
+        if self.output_message:
+            self.display_output_message()
+
         pygame.display.update()
 
     def display_image(self, image_name):
@@ -50,6 +58,39 @@ class Display():
     def reset_video_stream_number(self):
         self.set_video_stream_number(None)
 
+    def set_output_message(self, message):
+        self.output_message = message
+        self.display_output_message()
+
+    def display_output_message(self):
+        message_font = pygame.font.Font(None, 80)
+        message_font_outline = pygame.font.Font(None, 85)
+        text_outline = message_font_outline.render(self.output_message, True, self.DARK_TURQUOISE)
+        text_inner = message_font.render(self.output_message, True, self.TEXT_COLOR)
+        padding = 50
+        margin_bottom = 50
+
+        outline_rect = text_outline.get_rect()
+        box_width = outline_rect.width + padding * 2
+        box_height = outline_rect.height + padding * 2
+
+        if self.output_message is None:
+            return
+
+        box_x = (glv.WINDOW_WIDTH - box_width) // 2
+        box_y = glv.WINDOW_HEIGHT - box_height - margin_bottom
+        pygame.draw.rect(self.screen, self.TURQUOISE, (box_x, box_y, box_width, box_height), border_radius=10)
+
+        outline_pos = (
+            box_x + (box_width - outline_rect.width) // 2,
+            box_y + (box_height - outline_rect.height) // 2
+        )
+        inner_rect = text_inner.get_rect(center=text_outline.get_rect(topleft=outline_pos).center)
+
+        self.screen.blit(text_outline, outline_pos)
+        self.screen.blit(text_inner, inner_rect)
+        pygame.display.update()
+
     def display_black(self):
         self.screen.fill((0, 0, 0))
         pygame.display.update()
@@ -60,8 +101,8 @@ class Display():
         if self.video_stream_number is None:
             return
 
-        text = countdown_font.render(str(self.video_stream_number), True, (255, 255, 255))
-        shadow = countdown_font.render(str(self.video_stream_number), True, (0, 0, 0))  # Schwarzer Schatten
+        text = countdown_font.render(str(self.video_stream_number), True, self.TEXT_COLOR)
+        shadow = countdown_font.render(str(self.video_stream_number), True, self.DARK_TURQUOISE)  # Schwarzer Schatten
 
         text_x = (glv.WINDOW_WIDTH - text.get_width()) // 2
         text_y = (glv.WINDOW_HEIGHT - text.get_height()) // 2  # Leicht nach oben versetzt

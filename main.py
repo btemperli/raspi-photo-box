@@ -5,6 +5,7 @@ import ledfont
 import ledlight
 import buttonhandler
 import display
+import photouploader
 
 
 def shut_down():
@@ -30,10 +31,6 @@ def restart():
 
 
 def reset_photo_taking():
-    print("todo: upload photo (" + glv.last_image + ")")
-    # read last photo from glv.
-    # time.sleep(2)
-
     glv.EVENT_RUNNING_PHOTO = False
     restart()
 
@@ -58,6 +55,10 @@ if glv.DEBUG:
     print("(main.py) start initiating buttonHandler")
 buttonHandler = buttonhandler.ButtonHandler()
 
+if glv.DEBUG:
+    print("(main.py) start initiating photoUploader")
+photoUploader = photouploader.PhotoUploader()
+
 # needs to be after display
 if glv.DEBUG:
     print("(main.py) start initiating photoTaker")
@@ -74,6 +75,7 @@ run = True
 glv.EVENTS.take_a_photo += ledFont.set_white
 glv.EVENTS.take_a_photo += ledLight.flash
 glv.EVENTS.take_a_photo += photoTaker.shot
+glv.EVENTS.end_a_photo += photoUploader.upload
 glv.EVENTS.end_a_photo += reset_photo_taking
 glv.EVENTS.end_a_photo += photoTaker.show_live_video
 
