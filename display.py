@@ -9,7 +9,7 @@ class Display():
     TURQUOISE = (64, 224, 208)
     DARK_TURQUOISE = (0, 128, 128)
     TEXT_COLOR = (255, 255, 255)
-    BACKGROUND = (0, 11, 7)
+    BACKGROUND = (0, 50, 40)
 
     def __init__(self):
         pygame.init()
@@ -96,10 +96,10 @@ class Display():
         pygame.display.update()
 
     def display_frame_border(self):
-        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
-        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
-        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(glv.WINDOW_WIDTH - self.stream_frame_tl_x, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
-        pygame.draw.rect(self.screen, self.DARK_TURQUOISE, pygame.Rect(0, glv.WINDOW_HEIGHT - self.stream_frame_tl_y, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
+        pygame.draw.rect(self.screen, self.BACKGROUND, pygame.Rect(0, 0, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
+        pygame.draw.rect(self.screen, self.BACKGROUND, pygame.Rect(0, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
+        pygame.draw.rect(self.screen, self.BACKGROUND, pygame.Rect(glv.WINDOW_WIDTH - self.stream_frame_tl_x, 0, self.stream_frame_tl_x, glv.WINDOW_HEIGHT))
+        pygame.draw.rect(self.screen, self.BACKGROUND, pygame.Rect(0, glv.WINDOW_HEIGHT - self.stream_frame_tl_y, glv.WINDOW_WIDTH, self.stream_frame_tl_y))
         pygame.display.update()
 
     def display_countdown_number(self):
