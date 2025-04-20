@@ -1,10 +1,14 @@
 import threading
 import time
 import requests
+import shutil
+import os
 import global_variables as glv
 
 
 class PhotoUploader:
+
+    IMG_DIRECTORY_UPLOADED = '/home/photobox/projects/raspi-photo-box/uploaded'
 
     def __init__(self):
         self.message_output = None
@@ -13,6 +17,9 @@ class PhotoUploader:
         self.connection = False
 
         self.check_connection()
+
+        if self.connection:
+            os.makedirs(self.IMG_DIRECTORY_UPLOADED, exist_ok=True)  # Zielordner anlegen, falls nicht vorhanden
 
     def output(self):
         if not self.message_output:
@@ -54,7 +61,10 @@ class PhotoUploader:
                 response = requests.post(upload_url, files=files, data=data)
 
             if response.status_code == 200:
-                self.message_output = "Photo uploaded!"
+                dest_path = os.path.join(self.IMG_DIRECTORY_UPLOADED, os.path.basename(image_path))
+                shutil.move(image_path, dest_path)
+
+                self.message_output = "Photo saved & uploaded!"
             else:
                 self.message_output = f"Upload failed, {response.status_code}: {response.text}"
 
