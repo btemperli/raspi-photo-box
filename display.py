@@ -84,7 +84,8 @@ class Display():
         # glv.root_window.after(1000, self.update_countdown, 3)
 
     def update_countdown(self, count):
-        print("todo: update countdonw", count)
+        if glv.DEBUG:
+            print("todo: update countdown", count)
         # if count > 0:
             # self.label.config(image=None, text="")
             # self.label["background"] = "orange"

@@ -22,6 +22,7 @@ def restart():
     if glv.DEBUG:
         print("restart: ledfont / start show")
     ledFont.restart_show()
+
     if glv.DEBUG:
         print("restart: buttonhandler / start pulsing")
     buttonHandler.start_pulsing()
@@ -68,6 +69,7 @@ glv.EVENTS.take_a_photo += ledFont.show_white
 glv.EVENTS.take_a_photo += ledLight.flash
 glv.EVENTS.take_a_photo += photoTaker.shot
 glv.EVENTS.end_a_photo += reset_photo_taking
+glv.EVENTS.end_a_photo += photoTaker.show_live_video()
 
 # prepare
 if (glv.DEBUG):
@@ -84,7 +86,6 @@ while run:
             if not glv.take_a_photo_running:
                 glv.take_a_photo_running = True
                 glv.events.take_a_photo()
-
 
     except IOError:
         print('IOError')

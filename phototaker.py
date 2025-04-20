@@ -17,6 +17,8 @@ class PhotoTaker:
     img_directory = '/home/photobox/projects/raspi-photo-box/images'
     image = None
     image_ready = False
+    video_stream_thread = None
+    video_stream_thread_running = False
 
     camera.set(3, glv.CAMERA_WIDTH * 0.75)  # error when it's set to full size
     camera.set(4, glv.CAMERA_HEIGHT * 0.75)
@@ -25,12 +27,16 @@ class PhotoTaker:
     # video_height = 720
 
     def __init__(self):
-        video_stream_thread = threading.Thread(target=self.stream_video_as_thread)
-        video_stream_thread.daemon = True
-        video_stream_thread.start()
+        self.show_live_video()
 
         # bring_image_thread = threading.Thread(target=self.update_video_image)
         # bring_image_thread.start()
+
+    def show_live_video(self):
+        self.video_stream_thread_running = True
+        self.video_stream_thread = threading.Thread(target=self.stream_video_as_thread)
+        self.video_stream_thread.daemon = True
+        self.video_stream_thread.start()
 
     def get_next_image_name(self):
         regex_files = self.img_directory + '/' + self.img_file_name + '_*.jpg'
@@ -45,7 +51,7 @@ class PhotoTaker:
             print("pygame is loaded?")
             print(glv.INSTANCE_DISPLAY.check_pygame())
 
-        while True:
+        while self.video_stream_thread_running:
             ret, frame = self.camera.read()
             if ret:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -69,8 +75,9 @@ class PhotoTaker:
         image_name = self.get_next_image_name()
 
         if ret:
+            self.video_stream_thread_running = False
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame = np.rot90(frame, 3)
+            frame = np.rot90(frame, 2) # flip image: (3 = rotated 90 to left)
             cv2.imwrite(image_name, frame)
             glv.last_image = image_name
 
