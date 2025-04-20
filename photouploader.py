@@ -26,6 +26,13 @@ class PhotoUploader:
         glv.INSTANCE_DISPLAY.set_output_message(None)
 
     def check_connection(self):
+        try:
+            requests.head(glv.ENV_PHOTOBOX_URL_UPLOAD, timeout=5)
+            self.connection = True
+            return
+        except requests.RequestException:
+            self.connection = False
+
         self.connection = False
 
     def upload(self):
