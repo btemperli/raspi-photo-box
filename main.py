@@ -75,9 +75,9 @@ glv.EVENTS.end_a_photo += photoTaker.show_live_video()
 if glv.DEBUG:
     print("all events are registered.")
     print(glv.EVENTS)
-    print(len(glv.EVENTS))
+    print('lenght of events: ', len(glv.EVENTS))
     for event in glv.EVENTS:
-        print(event.__name__)
+        print('event', event.__name__)
 
 
 # prepare
