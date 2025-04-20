@@ -19,8 +19,7 @@ class Display():
         self.stream_frame_tl_x = (glv.WINDOW_WIDTH - self.stream_frame_width) // 2
         self.stream_frame_tl_y = (glv.WINDOW_HEIGHT - self.stream_frame_height) // 2
 
-        self.screen.fill((0, 0, 0))
-        pygame.display.update()
+        self.display_black()
 
         # glv.set_pg(pygame)
         # glv.set_screen(screen)
@@ -53,6 +52,10 @@ class Display():
         img = pygame.image.load(image_name)
         img = pygame.transform.scale(img, (glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT))
         self.screen.blit(img, (0, 0))
+        pygame.display.update()
+
+    def display_black(self):
+        self.screen.fill((0, 0, 0))
         pygame.display.update()
 
     def display_countdown_number(self, number):

@@ -49,7 +49,9 @@ class PhotoTaker:
         if glv.DEBUG:
             print("")
             print("pygame is loaded?")
-            print(glv.INSTANCE_DISPLAY.check_pygame())
+            glv.INSTANCE_DISPLAY.check_pygame()
+
+        glv.INSTANCE_DISPLAY.display_black()
 
         while self.video_stream_thread_running:
             ret, frame = self.camera.read()
@@ -77,7 +79,7 @@ class PhotoTaker:
         if ret:
             self.video_stream_thread_running = False
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            frame = np.rot90(frame, 2) # flip image: (3 = rotated 90 to left)
+            # frame = np.rot90(frame, 2) # flip image: (3 = rotated 90 to left)
             cv2.imwrite(image_name, frame)
             glv.last_image = image_name
 

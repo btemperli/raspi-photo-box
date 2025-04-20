@@ -68,7 +68,6 @@ class LedLight:
     def flash(self):
         self.pixels.brightness = 1
         self.pixels.fill(self.WHITE)
-        # time.sleep(glv.TIME_FLASH)
         self.pixels.brightness = self.BRIGHTNESS
         self.pixels.show()
 

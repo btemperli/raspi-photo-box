@@ -22,6 +22,7 @@ def restart():
     if glv.DEBUG:
         print("restart: ledfont / start show")
     ledFont.restart_show()
+    ledLight.stop()
 
     if glv.DEBUG:
         print("restart: buttonhandler / start pulsing")
@@ -31,7 +32,7 @@ def restart():
 def reset_photo_taking():
     print("todo: upload photo (" + glv.last_image + ")")
     # read last photo from glv.
-    time.sleep(2)
+    # time.sleep(2)
 
     glv.EVENT_RUNNING_PHOTO = False
     restart()
