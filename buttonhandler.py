@@ -40,6 +40,8 @@ class ButtonHandler:
             thread_left.join()
             thread_right.join()
 
+        if glv.DEBUG:
+            print('call now glv.EVENTs.take_a_photo()')
         glv.EVENTS.take_a_photo()
 
     def start_pulsing(self):
