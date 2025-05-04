@@ -71,6 +71,7 @@ class PhotoTaker:
 
     def shot(self):
         print("photo aufnehmen start.")
+        glv.INSTANCE_DISPLAY.set_output_message(None)
         ret, frame = self.camera.read()
         image_name = self.get_next_image_name()
 

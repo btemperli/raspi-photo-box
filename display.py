@@ -91,9 +91,13 @@ class Display():
         self.set_video_stream_number(None)
 
     def set_output_message(self, message):
+        if message == self.output_message:
+            return
+
         self.output_message = message
         self.display_frame_border()
         self.display_output_message(True)
+
     def display_output_message(self, refresh=False):
         message_font = pygame.font.Font(None, 60)
         text_outline = message_font.render(self.output_message, True, self.DARK_TURQUOISE)
@@ -120,7 +124,6 @@ class Display():
 
         if refresh:
             pygame.display.update()
-
 
     def display_black(self):
         self.screen.fill(self.BACKGROUND)
