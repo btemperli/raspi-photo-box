@@ -16,6 +16,8 @@ class PhotoUploader:
 
         self.check_connection()
 
+        os.makedirs(glv.DIRECTORY_IMAGES_DELETED, exist_ok=True)  # Zielordner anlegen, falls nicht vorhanden
+
         if self.connection:
             os.makedirs(glv.DIRECTORY_IMAGES_UPLOADED, exist_ok=True)  # Zielordner anlegen, falls nicht vorhanden
 

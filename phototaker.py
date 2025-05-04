@@ -43,7 +43,11 @@ class PhotoTaker:
         all_files = glob.glob(regex_files)
         count_files_uploaded = len(all_files)
 
-        count_files = count_files_uploaded + count_files_taken
+        regex_files = glv.DIRECTORY_IMAGES_DELETED + '/' + self.img_file_name + '_*.jpg'
+        all_files = glob.glob(regex_files)
+        count_files_deleted = len(all_files)
+
+        count_files = count_files_uploaded + count_files_taken + count_files_deleted
 
         return glv.DIRECTORY_IMAGES_TAKEN + '/' + self.img_file_name + '_' + str(count_files) + '.jpg'
 
