@@ -72,19 +72,28 @@ class ButtonHandler:
         if glv.DEBUG:
             print("SM green gedrueckt")
 
-        thread_left = threading.Thread(target=glv.INSTANCE_LEDLIGHT.show_green_time, args=(0.3,))
-        thread_left.start()
-        thread_left.join()
-        glv.INSTANCE_LEDLIGHT.stop()
+        # thread_left = threading.Thread(target=glv.INSTANCE_LEDLIGHT.show_green_time, args=(0.3,))
+        # thread_left.start()
+        # thread_left.join()
+        # glv.INSTANCE_LEDLIGHT.stop()
+
+        if (glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION):
+            # green button: save the foto.
+            glv.CURRENT_STAGE = glv.STAGE_WAITING
 
     def btn_sm_red_pressed(self):
         if glv.DEBUG:
             print("SM red gedrueckt")
 
-        thread_right = threading.Thread(target=glv.INSTANCE_LEDLIGHT.show_red_time, args=(0.3,))
-        thread_right.start()
-        thread_right.join()
-        glv.INSTANCE_LEDLIGHT.stop()
+        # thread_right = threading.Thread(target=glv.INSTANCE_LEDLIGHT.show_red_time, args=(0.3,))
+        # thread_right.start()
+        # thread_right.join()
+        # glv.INSTANCE_LEDLIGHT.stop()
+
+        if (glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION):
+            # red button: delete the foto.
+            glv.INSTANCE_UPLOADER.move_to_trash()
+            glv.CURRENT_STAGE = glv.STAGE_WAITING
 
     def btn_lg_red_pressed(self):
         if glv.DEBUG:

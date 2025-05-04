@@ -24,16 +24,23 @@ SETUP_RAW = 'SETUP_RAW'
 SETUP_WITH_GROVE = 'SETUP_WITH_GROVE'
 CURRENT_SETUP = SETUP_RAW
 
+STAGE_WAITING = 'WAITING'
+STAGE_PHOTO_TAKING = 'PHOTO_TAKING'
+STAGE_WAIT_FOR_DECISION = 'WAIT_FOR_DECISION'
+CURRENT_STAGE = STAGE_WAITING
+
 EVENT_RUNNING_PHOTO = False
 EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 
 DIRECTORY_IMAGES_TAKEN = '/home/photobox/projects/raspi-photo-box/images'
 DIRECTORY_IMAGES_UPLOADED = '/home/photobox/projects/raspi-photo-box/uploaded'
+DIRECTORY_IMAGES_DELETED = '/home/photobox/projects/raspi-photo-box/deleted'
 
 INSTANCE_DISPLAY = None
 INSTANCE_LEDFONT = None
 INSTANCE_LEDLIGHT = None
+INSTANCE_UPLOADER = None
 
 # .env-Variables
 load_dotenv()

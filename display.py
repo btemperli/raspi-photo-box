@@ -8,6 +8,8 @@ class Display():
 
     TURQUOISE = (64, 224, 208)
     DARK_TURQUOISE = (0, 128, 128)
+    RED = (220, 60, 70)
+    GREEN = (50, 220, 60)
     TEXT_COLOR = (255, 255, 255)
     BACKGROUND = (0, 50, 40)
 
@@ -50,6 +52,38 @@ class Display():
         self.screen.blit(img, (0, 0))
         pygame.display.update()
 
+    def display_decision(self):
+        font = pygame.font.Font(None, 40)
+        padding = 20
+        circle_radius = 30
+        margin = 40
+
+        # Position für den "löschen"-Button (unten rechts)
+        delete_circle_x = glv.WINDOW_WIDTH - margin - circle_radius
+        delete_circle_y = glv.WINDOW_HEIGHT - margin - circle_radius
+
+        # Position für den "speichern"-Button (unten links)
+        save_circle_x = margin + circle_radius
+        save_circle_y = glv.WINDOW_HEIGHT - margin - circle_radius
+
+        # Kreise zeichnen
+        pygame.draw.circle(self.screen, self.RED, (delete_circle_x, delete_circle_y), circle_radius)
+        pygame.draw.circle(self.screen, self.GREEN, (save_circle_x, save_circle_y), circle_radius)
+
+        # Texte rendern
+        delete_text = font.render("löschen", True, self.TEXT_COLOR)
+        save_text = font.render("speichern", True, self.TEXT_COLOR)
+
+        # Texte zentriert unter den Kreisen platzieren
+        delete_text_rect = delete_text.get_rect(center=(delete_circle_x, delete_circle_y + circle_radius + padding))
+        save_text_rect = save_text.get_rect(center=(save_circle_x, save_circle_y + circle_radius + padding))
+
+        # Texte anzeigen
+        self.screen.blit(delete_text, delete_text_rect)
+        self.screen.blit(save_text, save_text_rect)
+
+        pygame.display.update()
+
     def set_video_stream_number(self, number):
         self.video_stream_number = number
 
@@ -60,7 +94,6 @@ class Display():
         self.output_message = message
         self.display_frame_border()
         self.display_output_message(True)
-
     def display_output_message(self, refresh=False):
         message_font = pygame.font.Font(None, 60)
         text_outline = message_font.render(self.output_message, True, self.DARK_TURQUOISE)
@@ -87,6 +120,7 @@ class Display():
 
         if refresh:
             pygame.display.update()
+
 
     def display_black(self):
         self.screen.fill(self.BACKGROUND)

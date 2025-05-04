@@ -40,7 +40,20 @@ class PhotoUploader:
 
         self.connection = False
 
+    def move_to_trash(self):
+        image_path = glv.last_image
+        dest_path = os.path.join(glv.DIRECTORY_IMAGES_DELETED, os.path.basename(image_path))
+        shutil.move(image_path, dest_path)
+        self.message_output = "Photo deleted."
+        glv.last_image = None
+
+        self.thread_output = threading.Thread(target=self.output)
+        self.thread_output.start()
+
     def upload(self):
+        if (glv.last_image == None):
+            return
+
         self.check_connection()
 
         if not self.connection:
@@ -63,6 +76,7 @@ class PhotoUploader:
                 shutil.move(image_path, dest_path)
 
                 self.message_output = "Photo saved & uploaded!"
+                glv.last_image = None
             else:
                 self.message_output = f"Upload failed, {response.status_code}: {response.text}"
 
