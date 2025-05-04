@@ -99,11 +99,14 @@ class PhotoUploader:
         self.thread_output.start()
 
     def upload_old_images_threaded(self):
-        files = os.listdir(glv.DIRECTORY_IMAGES_TAKEN)
-        files = [f for f in files if os.path.isfile(os.path.join(glv.DIRECTORY_IMAGES_TAKEN, f))]
+        files = [
+            f for f in os.listdir(glv.DIRECTORY_IMAGES_TAKEN)
+            if os.path.isfile(os.path.join(glv.DIRECTORY_IMAGES_TAKEN, f)) and
+               f.startswith("image_") and f.lower().endswith(".jpg")
+        ]
         files.sort()  # optional: alphabetisch sortieren
         if files:
-            old_image = files[0]
+            old_image = os.path.join(glv.DIRECTORY_IMAGES_TAKEN, files[0])
             message = self.upload_single_image(old_image)
 
             if glv.DEBUG:
@@ -113,7 +116,6 @@ class PhotoUploader:
                 print('-----')
 
         self.upload_old_image_thread_running = False
-
 
     def upload_old_images(self):
         if not self.connection:
@@ -125,10 +127,6 @@ class PhotoUploader:
         self.upload_old_image_thread_running = True
         self.thread_upload_old = threading.Thread(target=self.upload_old_images_threaded)
         self.thread_upload_old.start()
-
-
-
-
 
     def shut_down(self):
         if glv.DEBUG:
