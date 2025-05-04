@@ -12,7 +12,10 @@ class PhotoUploader:
         self.message_output = None
         self.thread_output = None
         self.thread_upload = None
+        self.thread_upload_old = None
         self.connection = False
+        self.message_upload_success = 'Photo saved & uploaded!'
+        self.upload_old_image_thread_running = False
 
         self.check_connection()
 
@@ -52,18 +55,7 @@ class PhotoUploader:
         self.thread_output = threading.Thread(target=self.output)
         self.thread_output.start()
 
-    def upload(self):
-        if (glv.last_image == None):
-            return
-
-        self.check_connection()
-
-        if not self.connection:
-            self.message_output = "no connection: photo will be uploaded later."
-            self.thread_output = threading.Thread(target=self.output)
-            self.thread_output.start()
-
-        image_path = glv.last_image
+    def upload_single_image(self, image_path):
         upload_url = glv.ENV_PHOTOBOX_URL_UPLOAD
         token = glv.ENV_PHOTOBOX_TOKEN
 
@@ -77,16 +69,66 @@ class PhotoUploader:
                 dest_path = os.path.join(glv.DIRECTORY_IMAGES_UPLOADED, os.path.basename(image_path))
                 shutil.move(image_path, dest_path)
 
-                self.message_output = "Photo saved & uploaded!"
-                glv.last_image = None
+                message = self.message_upload_success
             else:
-                self.message_output = f"Upload failed, {response.status_code}: {response.text}"
+                message = f"Upload failed, {response.status_code}: {response.text}"
 
         except Exception as e:
-            self.message_output = f"Upload error: {str(e)}"
+            message = f"Upload error: {str(e)}"
+
+        return message
+
+    def upload(self):
+        if glv.last_image is None:
+            return
+
+        self.check_connection()
+
+        if not self.connection:
+            self.message_output = "no connection: photo will be uploaded later."
+            self.thread_output = threading.Thread(target=self.output)
+            self.thread_output.start()
+
+        image_path = glv.last_image
+        self.message_output = self.upload_single_image(image_path)
+
+        if self.message_output == self.message_upload_success:
+            glv.last_image = None
 
         self.thread_output = threading.Thread(target=self.output)
         self.thread_output.start()
+
+    def upload_old_images_threaded(self):
+        files = os.listdir(glv.DIRECTORY_IMAGES_TAKEN)
+        files = [f for f in files if os.path.isfile(os.path.join(glv.DIRECTORY_IMAGES_TAKEN, f))]
+        files.sort()  # optional: alphabetisch sortieren
+        if files:
+            old_image = files[0]
+            message = self.upload_single_image(old_image)
+
+            if glv.DEBUG:
+                print('-----')
+                print('old photo uploaded', old_image)
+                print(message)
+                print('-----')
+
+        self.upload_old_image_thread_running = False
+
+
+    def upload_old_images(self):
+        if not self.connection:
+            return
+
+        if self.upload_old_image_thread_running:
+            return
+
+        self.upload_old_image_thread_running = True
+        self.thread_upload_old = threading.Thread(target=self.upload_old_images_threaded)
+        self.thread_upload_old.start()
+
+
+
+
 
     def shut_down(self):
         if glv.DEBUG:

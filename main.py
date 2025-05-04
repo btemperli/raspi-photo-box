@@ -1,6 +1,7 @@
-import phototaker
 import time
+import random
 import global_variables as glv
+import phototaker
 import ledfont
 import ledlight
 import buttonhandler
@@ -71,6 +72,7 @@ print("-------------------------")
 
 # global needed variables.
 run = True
+glv.CURRENT_STAGE = glv.STAGE_WAITING
 
 # events
 glv.EVENTS.take_a_photo += ledFont.set_white
@@ -95,7 +97,9 @@ restart()
 
 while run:
     try:
-        time.sleep(0.1)
+        time.sleep(1)
+        if random.randint(0, 10) == 1:
+            glv.INSTANCE_UPLOADER.upload_old_images()
 
     except IOError:
         print('IOError')
