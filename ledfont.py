@@ -130,7 +130,7 @@ class LedFont:
             i += 1
 
     def run_show(self):
-        possibleFunctions = [
+        possible_functions = [
             self.led_font_blink_orange,
             self.show_orange,
             self.show_magenta,
@@ -163,14 +163,14 @@ class LedFont:
         ]
 
         while self.show_pixels:
-            index = random.randint(0, len(possibleFunctions) - 1)
+            index = random.randint(0, len(possible_functions) - 1)
             if self.debug:
-                print(index, str(possibleFunctions[index]))
-            if (callable(possibleFunctions[index])):
-                possibleFunctions[index]()
+                print(index, str(possible_functions[index]))
+            if (callable(possible_functions[index])):
+                possible_functions[index]()
             else:
-                args = possibleFunctions[index][1]
-                possibleFunctions[index][0](*args)
+                args = possible_functions[index][1]
+                possible_functions[index][0](*args)
 
     def led_font_show_full_letter(self, color, start, length):
         for i in range(start, start + length):
@@ -230,7 +230,6 @@ class LedFont:
     def set_red_lighter(self):
         self.show(self.INV_RED_LIGHTER, 0)
 
-
     def flash(self):
         self.show_white(glv.TIME_FLASH)
 
@@ -245,4 +244,5 @@ class LedFont:
         self.pixels_font.show()
 
     def restart_show(self):
+        self.stop()
         self.start_show()

@@ -53,6 +53,9 @@ class ButtonHandler:
         glv.EVENTS.take_a_photo()
 
     def start_pulsing(self):
+        if self.pulse_buttons_running:
+            return
+
         self.pulse_buttons_running = True
         self.thread_pulse = threading.Thread(target=self.pulse_buttons)
         self.thread_pulse.start()
@@ -67,6 +70,10 @@ class ButtonHandler:
             self.LED_SM_RED.value = 0
             self.LED_LG_RED.value = 1
             time.sleep(glv.TIME_BUTTON_PULSE)
+
+        self.LED_SM_GRE.value = 0
+        self.LED_SM_RED.value = 0
+        self.LED_LG_RED.value = 0
 
     def btn_sm_gre_pressed(self):
         if glv.DEBUG:
