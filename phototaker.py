@@ -82,12 +82,11 @@ class PhotoTaker:
             glv.CURRENT_STAGE = glv.STAGE_WAIT_FOR_DECISION
             glv.INSTANCE_DISPLAY.display_decision()
 
-            while glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION:
-                time.sleep(0.1)  # Kurz anzeigen
+            # while glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION:
+            #     time.sleep(0.1)  # Kurz anzeigen
 
         if glv.DEBUG:
             print("phototaker: end_a_photo.")
-        glv.EVENTS.end_a_photo()
 
     def shut_down(self):
         if glv.DEBUG:

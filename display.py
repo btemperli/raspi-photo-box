@@ -53,10 +53,10 @@ class Display():
         pygame.display.update()
 
     def display_decision(self):
-        font = pygame.font.Font(None, 40)
-        padding = 20
-        circle_radius = 30
-        margin = 40
+        font = pygame.font.Font(None, 50)
+        padding = 40
+        circle_radius = 80
+        margin = 100
 
         # Position für den "löschen"-Button (unten rechts)
         delete_circle_x = glv.WINDOW_WIDTH - margin - circle_radius

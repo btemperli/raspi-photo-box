@@ -77,9 +77,10 @@ class ButtonHandler:
         # thread_left.join()
         # glv.INSTANCE_LEDLIGHT.stop()
 
-        if (glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION):
+        if glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION:
             # green button: save the foto.
             glv.CURRENT_STAGE = glv.STAGE_WAITING
+            glv.EVENTS.end_a_photo()
 
     def btn_sm_red_pressed(self):
         if glv.DEBUG:
@@ -90,10 +91,11 @@ class ButtonHandler:
         # thread_right.join()
         # glv.INSTANCE_LEDLIGHT.stop()
 
-        if (glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION):
+        if glv.CURRENT_STAGE == glv.STAGE_WAIT_FOR_DECISION:
             # red button: delete the foto.
             glv.INSTANCE_UPLOADER.move_to_trash()
             glv.CURRENT_STAGE = glv.STAGE_WAITING
+            glv.EVENTS.end_a_photo()
 
     def btn_lg_red_pressed(self):
         if glv.DEBUG:
