@@ -11,4 +11,6 @@ echo '------------'
 echo ''
 echo ' - start main - '
 echo ''
-sudo python3 main.py
+
+LOGFILE="/home/photobox/projects/raspi-photo-box/run.log"
+sudo python3 main.py > "$LOGFILE" 2>&1
