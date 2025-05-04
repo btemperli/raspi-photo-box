@@ -19,7 +19,8 @@ class PhotoUploader:
 
         self.check_connection()
 
-        os.makedirs(glv.DIRECTORY_IMAGES_DELETED, exist_ok=True)  # Zielordner anlegen, falls nicht vorhanden
+        os.makedirs(glv.DIRECTORY_IMAGES_DELETED, exist_ok=True)
+        os.makedirs(glv.DIRECTORY_IMAGES_UPLOAD_LATER, exist_ok=True)
 
         if self.connection:
             os.makedirs(glv.DIRECTORY_IMAGES_UPLOADED, exist_ok=True)  # Zielordner anlegen, falls nicht vorhanden
@@ -83,30 +84,36 @@ class PhotoUploader:
             return
 
         self.check_connection()
+        image_path = glv.last_image
 
         if not self.connection:
             self.message_output = "no connection: photo will be uploaded later."
             self.thread_output = threading.Thread(target=self.output)
             self.thread_output.start()
+            dest_path = os.path.join(glv.DIRECTORY_IMAGES_UPLOAD_LATER, os.path.basename(image_path))
+            shutil.move(image_path, dest_path)
 
-        image_path = glv.last_image
         self.message_output = self.upload_single_image(image_path)
 
         if self.message_output == self.message_upload_success:
             glv.last_image = None
+
+        else:
+            dest_path = os.path.join(glv.DIRECTORY_IMAGES_UPLOAD_LATER, os.path.basename(image_path))
+            shutil.move(image_path, dest_path)
 
         self.thread_output = threading.Thread(target=self.output)
         self.thread_output.start()
 
     def upload_old_images_threaded(self):
         files = [
-            f for f in os.listdir(glv.DIRECTORY_IMAGES_TAKEN)
-            if os.path.isfile(os.path.join(glv.DIRECTORY_IMAGES_TAKEN, f)) and
+            f for f in os.listdir(glv.DIRECTORY_IMAGES_UPLOAD_LATER)
+            if os.path.isfile(os.path.join(glv.DIRECTORY_IMAGES_UPLOAD_LATER, f)) and
                f.startswith("image_") and f.lower().endswith(".jpg")
         ]
-        files.sort()  # optional: alphabetisch sortieren
+        files.sort()
         if files:
-            old_image = os.path.join(glv.DIRECTORY_IMAGES_TAKEN, files[0])
+            old_image = os.path.join(glv.DIRECTORY_IMAGES_UPLOAD_LATER, files[0])
             message = self.upload_single_image(old_image)
 
             if glv.DEBUG:

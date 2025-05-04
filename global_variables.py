@@ -34,6 +34,7 @@ EVENTS = photoboxevents.PhotoBoxEvents()
 last_image = ""
 
 DIRECTORY_IMAGES_TAKEN = '/home/photobox/projects/raspi-photo-box/images'
+DIRECTORY_IMAGES_UPLOAD_LATER = '/home/photobox/projects/raspi-photo-box/upload-later'
 DIRECTORY_IMAGES_UPLOADED = '/home/photobox/projects/raspi-photo-box/uploaded'
 DIRECTORY_IMAGES_DELETED = '/home/photobox/projects/raspi-photo-box/deleted'
 
