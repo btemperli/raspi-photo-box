@@ -16,6 +16,7 @@ class Display():
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)  # Raspberry Pi Touchscreen
+        pygame.mouse.set_visible(False)
         pygame.display.set_caption("Fotobox")
         self.font = pygame.font.Font(None, 80)
         self.clock = pygame.time.Clock()
