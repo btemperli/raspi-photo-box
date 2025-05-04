@@ -193,6 +193,7 @@ class LedFont:
         self.led_font_show_full_letter(color, 31, 8)
 
     def show(self, color, duration):
+        self.show_pixels = False
         self.pixels_font.fill(color)
         self.pixels_font.show()
         time.sleep(duration)
