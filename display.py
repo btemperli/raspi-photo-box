@@ -106,9 +106,11 @@ class Display():
             if event.type == pygame.KEYDOWN:
                 if self.fullscreen:
                     self.screen = pygame.display.set_mode((800, 600))
+                    pygame.display.update()
                     self.fullscreen = False
                 else:
                     self.screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)
+                    pygame.display.update()
                     self.fullscreen = True
 
     def display_output_message(self, refresh=False):
