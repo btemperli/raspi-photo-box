@@ -24,12 +24,14 @@ class Display():
         self.video_stream_number = None
         self.output_message = None
         self.program_running = True
+        self.fullscreen = True
 
         self.stream_frame_width = int(glv.CAMERA_WIDTH * 0.6)
         self.stream_frame_height = int(glv.CAMERA_HEIGHT * 0.6)
         self.stream_frame_tl_x = (glv.WINDOW_WIDTH - self.stream_frame_width) // 2
         self.stream_frame_tl_y = (glv.WINDOW_HEIGHT - self.stream_frame_height) // 2
 
+        self.register_events()
         self.display_black()
 
     def update_video_stream_frame(self, frame):
@@ -98,6 +100,16 @@ class Display():
         self.output_message = message
         self.display_frame_border()
         self.display_output_message(True)
+
+    def register_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if self.fullscreen:
+                    self.screen = pygame.display.set_mode((800, 600))
+                    self.fullscreen = False
+                else:
+                    self.screen = pygame.display.set_mode((glv.WINDOW_WIDTH, glv.WINDOW_HEIGHT), pygame.FULLSCREEN)
+                    self.fullscreen = True
 
     def display_output_message(self, refresh=False):
         message_font = pygame.font.Font(None, 60)
