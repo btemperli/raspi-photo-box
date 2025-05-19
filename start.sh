@@ -22,6 +22,7 @@ sudo pip3 install opencv-python
 sudo pip3 install events
 sudo pip3 install pygame
 sudo pip3 install python-dotenv
+sudo pip3 install keyboard
 
 echo '------------'
 echo 'READY TO USE'

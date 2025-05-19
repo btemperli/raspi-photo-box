@@ -1,5 +1,6 @@
 import time
 import random
+import keyboard
 import global_variables as glv
 import phototaker
 import ledfont
@@ -97,7 +98,15 @@ restart()
 
 while run:
     try:
-        time.sleep(1)
+        time.sleep(0.2)
+        if keyboard.is_pressed("q"):
+            glv.INSTANCE_DISPLAY.toggle_fullsize()
+
+        if keyboard.is_pressed("esc"):
+            print('ESC pressed, exiting')
+            run = False
+            shut_down()
+
         if random.randint(0, 10) == 1:
             glv.INSTANCE_UPLOADER.upload_old_images()
 
